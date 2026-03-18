@@ -7,7 +7,7 @@
 
 ### Extraction
 
-- [ ] **EXTR-01**: User can provide a URL and get the web page extracted as markdown via w3m
+- [x] **EXTR-01**: User can provide a URL and get the web page extracted as markdown via w3m
 - [ ] **EXTR-02**: User sees a loading indicator while a page is being fetched and extracted
 
 ### Display
@@ -23,7 +23,7 @@
 ### Input
 
 - [ ] **INPT-01**: User can paste a URL into the TUI and it auto-browses and extracts the article
-- [ ] **INPT-02**: User can launch the app with an optional URL argument (`articles [url]`)
+- [x] **INPT-02**: User can launch the app with an optional URL argument (`articles [url]`)
 
 ## v2 Requirements
 
@@ -49,8 +49,8 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EXTR-01 | Phase 1 | Pending |
-| INPT-02 | Phase 1 | Pending |
+| EXTR-01 | Phase 1 | Complete |
+| INPT-02 | Phase 1 | Complete |
 | DISP-01 | Phase 2 | Pending |
 | DISP-02 | Phase 2 | Pending |
 | NAV-01 | Phase 2 | Pending |

@@ -12,7 +12,7 @@ Two phases to ship a working terminal article reader. Phase 1 establishes the ex
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - CLI entry point and w3m extraction pipeline
+- [x] **Phase 1: Foundation** - CLI entry point and w3m extraction pipeline (completed 2026-03-18)
 - [ ] **Phase 2: Reader** - Full TUI reading experience with theme, navigation, and paste input
 
 ## Phase Details
@@ -50,5 +50,5 @@ Phases execute in numeric order: 1 → 2
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/1 | Not started | - |
+| 1. Foundation | 1/1 | Complete   | 2026-03-18 |
 | 2. Reader | 0/TBD | Not started | - |
