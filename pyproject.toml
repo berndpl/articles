@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "articles"
+version = "0.1.0"
+description = "Read web articles distraction-free in the terminal"
+requires-python = ">=3.11"
+dependencies = [
+    "textual>=0.47.0",
+]
+
+[project.scripts]
+articles = "articles.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
