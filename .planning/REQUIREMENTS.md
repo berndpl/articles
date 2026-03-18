@@ -49,20 +49,20 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EXTR-01 | — | Pending |
-| EXTR-02 | — | Pending |
-| DISP-01 | — | Pending |
-| DISP-02 | — | Pending |
-| NAV-01 | — | Pending |
-| NAV-02 | — | Pending |
-| INPT-01 | — | Pending |
-| INPT-02 | — | Pending |
+| EXTR-01 | Phase 1 | Pending |
+| INPT-02 | Phase 1 | Pending |
+| DISP-01 | Phase 2 | Pending |
+| DISP-02 | Phase 2 | Pending |
+| NAV-01 | Phase 2 | Pending |
+| NAV-02 | Phase 2 | Pending |
+| EXTR-02 | Phase 2 | Pending |
+| INPT-01 | Phase 2 | Pending |
 
 **Coverage:**
 - v1 requirements: 8 total
-- Mapped to phases: 0
-- Unmapped: 8 ⚠️
+- Mapped to phases: 8
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-18*
-*Last updated: 2026-03-18 after initial definition*
+*Last updated: 2026-03-18 after roadmap creation*
