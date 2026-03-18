@@ -25,7 +25,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. Running `articles https://example.com` in the terminal outputs or displays extracted article content
   2. The `articles` command is available as a CLI executable (installable via pip or direct invocation)
   3. w3m is invoked under the hood to fetch and convert the page; no headless browser is required
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 01-01-PLAN.md — Project scaffold, w3m extractor, and CLI entry point
 
 ### Phase 2: Reader
 **Goal**: User can read any web article distraction-free in a Textual TUI with keyboard navigation, cappuccino theme, paste-to-read, and loading feedback
@@ -47,5 +50,5 @@ Phases execute in numeric order: 1 → 2
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/1 | Not started | - |
 | 2. Reader | 0/TBD | Not started | - |
