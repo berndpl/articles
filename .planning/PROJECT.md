@@ -25,8 +25,8 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 
 - [ ] Article reading history — see recently read articles on launch
 - [ ] Re-open previous articles from history list
-- [ ] Catppuccin Mocha theme — switch to official community palette
-- [ ] Startup performance — investigate and fix slow launch time
+- [x] Catppuccin Mocha theme — switch to official community palette — Validated in Phase 3
+- [x] Startup performance — lazy-import trafilatura for fast launch — Validated in Phase 3
 
 ### Out of Scope
 
@@ -53,8 +53,10 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 | Python + Textual | Rich markdown rendering built-in, easy theming, rapid development | ✓ Validated |
 | trafilatura for extraction | Article-only markdown output (replaced w3m which only produced plain text) | ✓ Validated |
 | Single-article view | Keep v1 focused — one URL, one reading experience | ✓ Validated |
-| Dark mocha cappuccino theme | Cozy reading experience — dark brown bg, cream text, cinnamon accents | ✓ Validated |
+| Dark mocha cappuccino theme | Cozy reading experience — dark brown bg, cream text, cinnamon accents | Replaced by Catppuccin Mocha in Phase 3 |
 | VerticalScroll + Markdown | MarkdownViewer has can_focus=False bug — VerticalScroll enables arrow key scrolling | ✓ Validated |
+| Catppuccin Mocha theme | Official community palette, built-in Textual theme, zero custom theme code | ✓ Validated |
+| Lazy-import trafilatura | Eliminates ~518ms startup cost — import only when extract_url() called | ✓ Validated |
 
 ## Current Milestone: v2.0 History & Polish
 
@@ -66,4 +68,4 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 - Startup performance — profile and fix slow app launch time
 
 ---
-*Last updated: 2026-03-19 — Milestone v2.0 started*
+*Last updated: 2026-03-19 — Phase 3 complete (Catppuccin Mocha + startup perf)*
