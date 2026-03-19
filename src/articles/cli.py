@@ -1,33 +1,20 @@
-"""CLI entry point for the articles terminal reader."""
+"""CLI entry point — launches the articles TUI."""
 
 import sys
 
-from articles.extractor import extract_url
+from articles.app import ArticlesApp
 
 
 def main() -> None:
     """Main entry point for the `articles` CLI command.
 
     Usage:
-        articles                  # prints usage help
-        articles <url>            # fetches URL and prints extracted text
+        articles            # launches TUI with welcome screen
+        articles <url>      # launches TUI and immediately loads the URL
     """
-    if len(sys.argv) < 2:
-        print("Usage: articles <url>")
-        print("Example: articles https://example.com")
-        sys.exit(0)
-
-    url = sys.argv[1]
-
-    try:
-        content = extract_url(url)
-        print(content)
-    except ValueError as exc:
-        print(f"Error: {exc}", file=sys.stderr)
-        sys.exit(1)
-    except RuntimeError as exc:
-        print(f"Error: {exc}", file=sys.stderr)
-        sys.exit(1)
+    url = sys.argv[1] if len(sys.argv) > 1 else None
+    app = ArticlesApp(url=url)
+    app.run()
 
 
 if __name__ == "__main__":
