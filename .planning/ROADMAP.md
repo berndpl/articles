@@ -41,7 +41,11 @@ Plans:
   4. User can page up and page down through long articles
   5. User can paste a URL directly into the TUI and the article loads automatically without any extra commands
   6. A loading indicator appears while a URL is being fetched and extracted, and disappears when rendering is complete
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Markdown extraction (trafilatura) and cappuccino theme definition
+- [ ] 02-02-PLAN.md — Textual TUI application, CLI wiring, and visual verification
 
 ## Progress
 
@@ -51,4 +55,4 @@ Phases execute in numeric order: 1 → 2
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 1/1 | Complete    | 2026-03-18 |
-| 2. Reader | 0/TBD | Not started | - |
+| 2. Reader | 0/2 | Not started | - |
