@@ -2,15 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: — Core Reader
-status: planning
-stopped_at: Phase 3 planned — ready for execution
-last_updated: "2026-03-19T06:27:05.548Z"
-last_activity: 2026-03-19 — v2.0 roadmap created
+status: unknown
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-19T06:40:51.742Z"
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 4
-  completed_plans: 3
+  completed_plans: 4
 ---
 
 # Project State
@@ -20,18 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** Read web articles distraction-free in the terminal — paste a URL and start reading.
-**Current focus:** Milestone v2.0 — History & Polish
+**Current focus:** Phase 03 — theme-performance
 
 ## Current Position
 
-Phase: Phase 3 — Theme & Performance (next)
-Plan: —
-Status: Roadmap complete, ready for phase planning
-Last activity: 2026-03-19 — v2.0 roadmap created
-
-```
-v2.0 Progress: ░░░░░░░░░░░░░░░░░░░░ 0%  (0/2 phases)
-```
+Phase: 03 (theme-performance) — COMPLETE
+Plan: 1 of 1 ✅
 
 ## Performance Metrics
 
@@ -55,6 +48,7 @@ v2.0 Progress: ░░░░░░░░░░░░░░░░░░░░ 0%  
 *Updated after each plan completion*
 | Phase 02-reader P01 | 3 min | 2 tasks | 4 files |
 | Phase 02-reader P02 | 5 min | 3 tasks | 3 files |
+| Phase 03-theme-performance P01 | 9 min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -73,6 +67,8 @@ Recent decisions affecting current work:
 - [Phase 02-reader]: Cappuccino palette: dark mocha #2C1810 bg, cream #F5DEB3 fg, cinnamon #D2691E primary
 - [Phase 02-reader]: VerticalScroll+Markdown instead of MarkdownViewer — MarkdownViewer can_focus=False breaks scrolling
 - [Phase 02-reader]: max-width: 88 CSS for comfortable reading column, full-width on narrow terminals
+- [Phase 03-theme-performance]: Catppuccin Mocha built-in theme replaces custom cappuccino — zero maintenance, widely recognized
+- [Phase 03-theme-performance]: Lazy import trafilatura inside extract_url() — eliminates ~518ms from import chain
 
 ### Pending Todos
 
@@ -85,6 +81,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T06:27:05.545Z
-Stopped at: Phase 3 planned — ready for execution
-Resume file: .planning/phases/03-theme-performance/03-01-PLAN.md
+Last session: 2026-03-19T06:40:51.739Z
+Stopped at: Completed 03-01-PLAN.md
+Resume file: None

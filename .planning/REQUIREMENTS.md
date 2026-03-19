@@ -29,13 +29,13 @@
 
 ### Theme
 
-- [ ] **THEME-01**: TUI uses the official Catppuccin Mocha color palette (built-in Textual theme)
-- [ ] **THEME-02**: Custom cappuccino theme code (`theme.py`) is removed
-- [ ] **THEME-03**: Scrollbar is hidden for a cleaner reading experience
+- [x] **THEME-01**: TUI uses the official Catppuccin Mocha color palette (built-in Textual theme)
+- [x] **THEME-02**: Custom cappuccino theme code (`theme.py`) is removed
+- [x] **THEME-03**: Scrollbar is hidden for a cleaner reading experience
 
 ### Performance
 
-- [ ] **PERF-01**: App startup time is under 500ms (lazy-import trafilatura)
+- [x] **PERF-01**: App startup time is under 500ms (lazy-import trafilatura)
 
 ### History
 
@@ -71,10 +71,10 @@
 | NAV-02 | Phase 2 | Complete |
 | EXTR-02 | Phase 2 | Complete |
 | INPT-01 | Phase 2 | Complete |
-| THEME-01 | Phase 3 | Pending |
-| THEME-02 | Phase 3 | Pending |
-| THEME-03 | Phase 3 | Pending |
-| PERF-01 | Phase 3 | Pending |
+| THEME-01 | Phase 3 | Complete |
+| THEME-02 | Phase 3 | Complete |
+| THEME-03 | Phase 3 | Complete |
+| PERF-01 | Phase 3 | Complete |
 | HIST-01 | Phase 4 | Pending |
 | HIST-02 | Phase 4 | Pending |
 | HIST-03 | Phase 4 | Pending |
