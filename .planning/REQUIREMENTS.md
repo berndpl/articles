@@ -12,8 +12,8 @@
 
 ### Display
 
-- [ ] **DISP-01**: User can read extracted article with rendered markdown formatting (headers, bold, links)
-- [ ] **DISP-02**: TUI uses a cappuccino/mocha color theme (warm browns, creams, soft accents)
+- [x] **DISP-01**: User can read extracted article with rendered markdown formatting (headers, bold, links)
+- [x] **DISP-02**: TUI uses a cappuccino/mocha color theme (warm browns, creams, soft accents)
 
 ### Navigation
 
@@ -51,8 +51,8 @@
 |-------------|-------|--------|
 | EXTR-01 | Phase 1 | Complete |
 | INPT-02 | Phase 1 | Complete |
-| DISP-01 | Phase 2 | Pending |
-| DISP-02 | Phase 2 | Pending |
+| DISP-01 | Phase 2 | Complete |
+| DISP-02 | Phase 2 | Complete |
 | NAV-01 | Phase 2 | Pending |
 | NAV-02 | Phase 2 | Pending |
 | EXTR-02 | Phase 2 | Pending |
