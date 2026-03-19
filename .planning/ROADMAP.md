@@ -2,7 +2,13 @@
 
 ## Overview
 
-Two phases to ship a working terminal article reader. Phase 1 establishes the extraction pipeline and CLI entry point — a working `articles` command that fetches and dumps a URL as markdown. Phase 2 wraps that pipeline in a full TUI: styled rendering, cappuccino theme, keyboard navigation, paste-to-read, and loading feedback. When Phase 2 is done, the product is complete.
+### v1.0 — Core Reader (Complete)
+
+Two phases to ship a working terminal article reader. Phase 1 establishes the extraction pipeline and CLI entry point — a working `articles` command that fetches and dumps a URL as markdown. Phase 2 wraps that pipeline in a full TUI: styled rendering, cappuccino theme, keyboard navigation, paste-to-read, and loading feedback.
+
+### v2.0 — History & Polish
+
+Two phases to polish the reading experience and add history. Phase 3 migrates to the official Catppuccin Mocha theme, removes custom theme code, hides the scrollbar, and fixes slow startup via lazy imports — quick wins that establish the visual and performance baseline. Phase 4 adds article history: a persistent list of recently read articles on the welcome screen with the ability to re-open them.
 
 ## Phases
 
@@ -13,7 +19,9 @@ Two phases to ship a working terminal article reader. Phase 1 establishes the ex
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - CLI entry point and w3m extraction pipeline (completed 2026-03-18)
-- [ ] **Phase 2: Reader** - Full TUI reading experience with theme, navigation, and paste input
+- [x] **Phase 2: Reader** - Full TUI reading experience with theme, navigation, and paste input (completed)
+- [ ] **Phase 3: Theme & Performance** - Catppuccin Mocha theme, scrollbar cleanup, fast startup
+- [ ] **Phase 4: History** - Reading history with persistent storage and re-open from welcome screen
 
 ## Phase Details
 
@@ -47,12 +55,36 @@ Plans:
 - [ ] 02-01-PLAN.md — Markdown extraction (trafilatura) and cappuccino theme definition
 - [ ] 02-02-PLAN.md — Textual TUI application, CLI wiring, and visual verification
 
+### Phase 3: Theme & Performance
+**Goal**: App uses the official Catppuccin Mocha palette with a clean scrollbar-free UI and launches in under 500ms
+**Depends on**: Phase 2
+**Requirements**: THEME-01, THEME-02, THEME-03, PERF-01
+**Success Criteria** (what must be TRUE):
+  1. TUI renders with official Catppuccin Mocha colors (dark base, pastel accents) instead of custom cappuccino palette
+  2. No custom theme code remains in the codebase (`theme.py` deleted or emptied)
+  3. Scrollbar is not visible during article reading
+  4. App launches and shows the welcome/input screen in under 500ms
+**Plans**: TBD
+
+### Phase 4: History
+**Goal**: Users can browse and re-open previously read articles from the launch screen
+**Depends on**: Phase 3
+**Requirements**: HIST-01, HIST-02, HIST-03
+**Success Criteria** (what must be TRUE):
+  1. Welcome screen shows a list of previously read articles (title and/or URL)
+  2. User can select an article from the history list and it re-opens in the reader
+  3. History persists across app restarts — articles read in one session appear in the next
+  4. First launch with no history shows a clean welcome screen without errors
+**Plans**: TBD
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2
+Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/1 | Complete    | 2026-03-18 |
-| 2. Reader | 0/2 | Not started | - |
+| 1. Foundation | 1/1 | Complete | 2026-03-18 |
+| 2. Reader | 2/2 | Complete | 2026-03-19 |
+| 3. Theme & Performance | 0/? | Not started | - |
+| 4. History | 0/? | Not started | - |

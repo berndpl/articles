@@ -71,13 +71,20 @@
 | NAV-02 | Phase 2 | Complete |
 | EXTR-02 | Phase 2 | Complete |
 | INPT-01 | Phase 2 | Complete |
+| THEME-01 | Phase 3 | Pending |
+| THEME-02 | Phase 3 | Pending |
+| THEME-03 | Phase 3 | Pending |
+| PERF-01 | Phase 3 | Pending |
+| HIST-01 | Phase 4 | Pending |
+| HIST-02 | Phase 4 | Pending |
+| HIST-03 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 8 total — all complete
-- v2 requirements: 7 total
-- Mapped to phases: 8 (v1)
-- Unmapped: 7 (v2 — pending roadmap)
+- v2 requirements: 7 total — all mapped
+- Mapped to phases: 15/15 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-18*
-*Last updated: 2026-03-19 — v2.0 requirements added*
+*Last updated: 2026-03-19 — v2.0 requirements mapped to phases*
