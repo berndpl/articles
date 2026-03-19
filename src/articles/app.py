@@ -33,6 +33,7 @@ class ArticlesApp(App):
     }
     #content {
         align-horizontal: center;
+        scrollbar-size: 0 0;
     }
     #article {
         max-width: 88;
