@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: — Core Reader
 status: unknown
-stopped_at: Phase 4 planned — ready for execution
-last_updated: "2026-03-19T08:23:41.642Z"
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-19T10:02:08.041Z"
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 6
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** Read web articles distraction-free in the terminal — paste a URL and start reading.
-**Current focus:** Phase 03 — theme-performance
+**Current focus:** Phase 04 — history
 
 ## Current Position
 
-Phase: 03 (theme-performance) — COMPLETE
-Plan: 1 of 1 ✅
+Phase: 04 (history) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -49,6 +49,7 @@ Plan: 1 of 1 ✅
 | Phase 02-reader P01 | 3 min | 2 tasks | 4 files |
 | Phase 02-reader P02 | 5 min | 3 tasks | 3 files |
 | Phase 03-theme-performance P01 | 9 min | 2 tasks | 5 files |
+| Phase 04-history P01 | 3 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,7 @@ Recent decisions affecting current work:
 - [Phase 02-reader]: max-width: 88 CSS for comfortable reading column, full-width on narrow terminals
 - [Phase 03-theme-performance]: Catppuccin Mocha built-in theme replaces custom cappuccino — zero maintenance, widely recognized
 - [Phase 03-theme-performance]: Lazy import trafilatura inside extract_url() — eliminates ~518ms from import chain
+- [Phase 04-history]: load_article_content strips leading newlines after frontmatter for clean content return
 
 ### Pending Todos
 
@@ -81,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T08:23:41.633Z
-Stopped at: Phase 4 planned — ready for execution
-Resume file: .planning/phases/04-history/04-01-PLAN.md
+Last session: 2026-03-19T10:02:08.038Z
+Stopped at: Completed 04-01-PLAN.md
+Resume file: None

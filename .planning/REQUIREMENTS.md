@@ -41,7 +41,7 @@
 
 - [ ] **HIST-01**: User can see a list of recently read articles on the launch/welcome screen
 - [ ] **HIST-02**: User can select a previous article from history to re-open it
-- [ ] **HIST-03**: Reading history persists across app sessions (JSON file storage)
+- [x] **HIST-03**: Reading history persists across app sessions (JSON file storage)
 
 ## Future Requirements
 
@@ -77,7 +77,7 @@
 | PERF-01 | Phase 3 | Complete |
 | HIST-01 | Phase 4 | Pending |
 | HIST-02 | Phase 4 | Pending |
-| HIST-03 | Phase 4 | Pending |
+| HIST-03 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 8 total — all complete
