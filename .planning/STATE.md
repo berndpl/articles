@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-18)
 
 **Core value:** Read web articles distraction-free in the terminal — paste a URL and start reading.
-**Current focus:** Phase 1 — Foundation
+**Current focus:** Phase 2 — Reader
 
 ## Current Position
 
-Phase: 1 of 2 (Foundation)
-Plan: 1 of 1 in current phase
-Status: Phase 1 complete
-Last activity: 2026-03-18 — Plan 01-01 completed
+Phase: 2 of 2 (Reader)
+Plan: 0 of TBD in current phase
+Status: Context gathered, ready to plan
+Last activity: 2026-03-19 — Phase 2 context gathered
 
-Progress: [██████████] 100%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -75,6 +75,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-18T14:26:37.177Z
-Stopped at: Completed 01-foundation-01-PLAN.md
-Resume file: None
+Last session: 2026-03-19T01:27:07.398Z
+Stopped at: Phase 2 context gathered, ready to plan
+Resume file: .planning/phases/02-reader/02-CONTEXT.md
