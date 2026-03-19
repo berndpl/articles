@@ -1,7 +1,5 @@
 """Article extraction — fetches web pages and converts to markdown."""
 
-import trafilatura
-
 
 def extract_url(url: str) -> str:
     """Fetch a URL and extract its article content as markdown.
@@ -16,6 +14,8 @@ def extract_url(url: str) -> str:
         ValueError: If url is empty.
         RuntimeError: If fetching fails or no article content is found.
     """
+    import trafilatura
+
     if not url:
         raise ValueError("URL must not be empty")
 
