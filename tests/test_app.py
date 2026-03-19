@@ -28,8 +28,8 @@ async def test_app_loads_article_with_initial_url():
 
 
 @pytest.mark.asyncio
-async def test_app_has_cappuccino_theme():
-    """App uses cappuccino theme."""
+async def test_app_has_catppuccin_mocha_theme():
+    """App uses Catppuccin Mocha built-in theme."""
     app = ArticlesApp()
     async with app.run_test() as pilot:
-        assert pilot.app.theme == "cappuccino"
+        assert pilot.app.theme == "catppuccin-mocha"
