@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A terminal-based article reader that extracts web articles into clean, readable markdown. Paste or provide a URL, and `articles` uses w3m to fetch the page, converts it to markdown, and renders it in a cozy cappuccino/mocha-themed TUI with keyboard navigation.
+A terminal-based article reader that extracts web articles into clean, readable markdown. Paste or provide a URL, and `articles` uses trafilatura to fetch and extract the article content as markdown, then renders it in a cozy cappuccino/mocha-themed TUI with keyboard navigation.
 
 ## Core Value
 
@@ -12,18 +12,18 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Extract web pages to markdown using trafilatura — Validated in Phase 1+2
+- [x] Render markdown with styled formatting (headers, bold, links) in TUI — Validated in Phase 2
+- [x] Cappuccino/mocha color theme — Validated in Phase 2
+- [x] Keyboard shortcuts for scrolling and paging (up/down, page up/down) — Validated in Phase 2
+- [x] Accept paste events for URLs — auto-browse and extract on paste — Validated in Phase 2
+- [x] Show loading indicator while fetching and extracting — Validated in Phase 2
+- [x] CLI executable (`articles`) with optional URL argument — Validated in Phase 1
+- [x] Python + Textual stack — Validated in Phase 1
 
 ### Active
 
-- [ ] Extract web pages to markdown using w3m
-- [ ] Render markdown with styled formatting (headers, bold, links) in TUI
-- [ ] Cappuccino/mocha color theme
-- [ ] Keyboard shortcuts for scrolling and paging (up/down, page up/down)
-- [ ] Accept paste events for URLs — auto-browse and extract on paste
-- [ ] Show loading indicator while fetching and extracting
-- [ ] CLI executable (`articles`) with optional URL argument
-- [ ] Python + Textual stack
+(All v1 requirements validated)
 
 ### Out of Scope
 
@@ -35,13 +35,12 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 ## Context
 
 - Built with Python and the Textual TUI framework for rich terminal rendering
-- Uses w3m (`w3m -dump`) to extract web content as text, then converts to markdown
+- Uses trafilatura to extract article content as markdown (replaced w3m in Phase 2)
 - Textual provides built-in markdown rendering, theming, and input handling
 - Target: macOS terminal (bash 3.2+ compatible for any shell scripts)
 
 ## Constraints
 
-- **Runtime dependency**: w3m must be installed (`brew install w3m`)
 - **Shell compatibility**: Any bash scripts must work on bash 3.2+ (Intel Mac baseline)
 - **Platform**: macOS primary, standard terminal emulators
 
@@ -49,9 +48,11 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Python + Textual | Rich markdown rendering built-in, easy theming, rapid development | — Pending |
-| w3m for extraction | Simple, reliable, no heavy dependencies like headless browsers | — Pending |
-| Single-article view | Keep v1 focused — one URL, one reading experience | — Pending |
+| Python + Textual | Rich markdown rendering built-in, easy theming, rapid development | ✓ Validated |
+| trafilatura for extraction | Article-only markdown output (replaced w3m which only produced plain text) | ✓ Validated |
+| Single-article view | Keep v1 focused — one URL, one reading experience | ✓ Validated |
+| Dark mocha cappuccino theme | Cozy reading experience — dark brown bg, cream text, cinnamon accents | ✓ Validated |
+| VerticalScroll + Markdown | MarkdownViewer has can_focus=False bug — VerticalScroll enables arrow key scrolling | ✓ Validated |
 
 ---
-*Last updated: 2026-03-18 after initialization*
+*Last updated: 2026-03-19 — Phase 2 complete, all v1 requirements validated*
