@@ -9,7 +9,6 @@ from textual.events import Paste
 from textual.widgets import Footer, Markdown, Static
 
 from articles.extractor import extract_url
-from articles.theme import CAPPUCCINO
 
 URL_PATTERN = re.compile(r"https?://[^\s<>\"]+")
 
@@ -56,8 +55,7 @@ class ArticlesApp(App):
 
     def __init__(self, url: str | None = None):
         super().__init__()
-        self.register_theme(CAPPUCCINO)
-        self.theme = "cappuccino"
+        self.theme = "catppuccin-mocha"
         self._initial_url = url
 
     def compose(self) -> ComposeResult:
