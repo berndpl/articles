@@ -1,32 +1,27 @@
-"""Tests for the w3m extraction function."""
+"""Tests for the trafilatura-based extraction function."""
 
-import subprocess
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
 from articles.extractor import extract_url
 
-
-def test_extract_url_returns_nonempty_string():
-    mock_result = MagicMock()
-    mock_result.returncode = 0
-    mock_result.stdout = "Example Domain\nThis domain is for use in examples."
-    mock_result.stderr = ""
-    with patch("articles.extractor.subprocess.run", return_value=mock_result):
-        output = extract_url("https://example.com")
-    assert isinstance(output, str)
-    assert len(output) > 0
+MOCK_HTML = "<html><body><article><h1>Test Title</h1><p>Content with <b>bold</b> and <a href='https://link.com'>a link</a>.</p></article></body></html>"
+MOCK_MARKDOWN = "# Test Title\n\nContent with **bold** and [a link](https://link.com)."
 
 
-def test_extract_url_output_contains_page_text():
-    mock_result = MagicMock()
-    mock_result.returncode = 0
-    mock_result.stdout = "Example Domain\nThis domain is for use in examples."
-    mock_result.stderr = ""
-    with patch("articles.extractor.subprocess.run", return_value=mock_result):
-        output = extract_url("https://example.com")
-    assert "Example Domain" in output
+def test_extract_url_returns_markdown_with_headers():
+    with patch("articles.extractor.trafilatura.fetch_url", return_value=MOCK_HTML):
+        with patch("articles.extractor.trafilatura.extract", return_value=MOCK_MARKDOWN):
+            output = extract_url("https://example.com")
+    assert "# " in output
+
+
+def test_extract_url_returns_markdown_with_links():
+    with patch("articles.extractor.trafilatura.fetch_url", return_value=MOCK_HTML):
+        with patch("articles.extractor.trafilatura.extract", return_value=MOCK_MARKDOWN):
+            output = extract_url("https://example.com")
+    assert "[" in output and "](" in output
 
 
 def test_extract_url_raises_value_error_on_empty_url():
@@ -34,20 +29,14 @@ def test_extract_url_raises_value_error_on_empty_url():
         extract_url("")
 
 
-def test_extract_url_raises_runtime_error_when_w3m_not_installed():
-    with patch(
-        "articles.extractor.subprocess.run",
-        side_effect=FileNotFoundError,
-    ):
-        with pytest.raises(RuntimeError, match="w3m failed"):
-            extract_url("https://example.com")
+def test_extract_url_raises_runtime_error_on_fetch_failure():
+    with patch("articles.extractor.trafilatura.fetch_url", return_value=None):
+        with pytest.raises(RuntimeError, match="Failed to fetch"):
+            extract_url("https://bad.com")
 
 
-def test_extract_url_raises_runtime_error_on_nonzero_exit():
-    mock_result = MagicMock()
-    mock_result.returncode = 1
-    mock_result.stdout = ""
-    mock_result.stderr = "connect error"
-    with patch("articles.extractor.subprocess.run", return_value=mock_result):
-        with pytest.raises(RuntimeError, match="w3m failed"):
-            extract_url("https://example.com")
+def test_extract_url_raises_runtime_error_on_no_content():
+    with patch("articles.extractor.trafilatura.fetch_url", return_value=MOCK_HTML):
+        with patch("articles.extractor.trafilatura.extract", return_value=None):
+            with pytest.raises(RuntimeError, match="No article content"):
+                extract_url("https://empty.com")
