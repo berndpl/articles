@@ -39,8 +39,8 @@
 
 ### History
 
-- [ ] **HIST-01**: User can see a list of recently read articles on the launch/welcome screen
-- [ ] **HIST-02**: User can select a previous article from history to re-open it
+- [x] **HIST-01**: User can see a list of recently read articles on the launch/welcome screen
+- [x] **HIST-02**: User can select a previous article from history to re-open it
 - [x] **HIST-03**: Reading history persists across app sessions (JSON file storage)
 
 ## Future Requirements
@@ -75,8 +75,8 @@
 | THEME-02 | Phase 3 | Complete |
 | THEME-03 | Phase 3 | Complete |
 | PERF-01 | Phase 3 | Complete |
-| HIST-01 | Phase 4 | Pending |
-| HIST-02 | Phase 4 | Pending |
+| HIST-01 | Phase 4 | Complete |
+| HIST-02 | Phase 4 | Complete |
 | HIST-03 | Phase 4 | Complete |
 
 **Coverage:**

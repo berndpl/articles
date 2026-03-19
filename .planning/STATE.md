@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: — Core Reader
 status: unknown
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-19T10:02:08.041Z"
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-03-19T10:10:30.991Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -50,6 +50,7 @@ Plan: 2 of 2
 | Phase 02-reader P02 | 5 min | 3 tasks | 3 files |
 | Phase 03-theme-performance P01 | 9 min | 2 tasks | 5 files |
 | Phase 04-history P01 | 3 min | 2 tasks | 2 files |
+| Phase 04-history PP02 | 4 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,8 @@ Recent decisions affecting current work:
 - [Phase 03-theme-performance]: Catppuccin Mocha built-in theme replaces custom cappuccino — zero maintenance, widely recognized
 - [Phase 03-theme-performance]: Lazy import trafilatura inside extract_url() — eliminates ~518ms from import chain
 - [Phase 04-history]: load_article_content strips leading newlines after frontmatter for clean content return
+- [Phase 04-history]: Static._Static__content for test assertions — Textual 8.x uses name-mangled private attribute
+- [Phase 04-history]: MagicMock event for OptionList selection test — Textual pilot doesn't trigger OptionSelected in headless mode
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T10:02:08.038Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-19T10:10:30.988Z
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None
