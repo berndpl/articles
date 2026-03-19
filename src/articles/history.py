@@ -62,7 +62,7 @@ def load_article_content(path: Path) -> str:
     if text.startswith("---\n"):
         end = text.find("\n---\n", 3)
         if end != -1:
-            return text[end + 5:]
+            return text[end + 5:].lstrip("\n")
     return text
 
 
