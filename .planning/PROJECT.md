@@ -23,14 +23,16 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 
 ### Active
 
-(All v1 requirements validated)
+- [ ] Article reading history — see recently read articles on launch
+- [ ] Re-open previous articles from history list
+- [ ] Catppuccin Mocha theme — switch to official community palette
+- [ ] Startup performance — investigate and fix slow launch time
 
 ### Out of Scope
 
-- Bookmarking or history — keep it a pure reader for now
 - Offline caching — read once, move on
-- Multiple tabs/windows — single article at a time
-- Custom CSS or per-site extraction rules — w3m handles it all
+- Multiple tabs/windows — single article at a time (deferred from v1)
+- Custom CSS or per-site extraction rules
 
 ## Context
 
@@ -54,5 +56,14 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 | Dark mocha cappuccino theme | Cozy reading experience — dark brown bg, cream text, cinnamon accents | ✓ Validated |
 | VerticalScroll + Markdown | MarkdownViewer has can_focus=False bug — VerticalScroll enables arrow key scrolling | ✓ Validated |
 
+## Current Milestone: v2.0 History & Polish
+
+**Goal:** Add reading history, switch to Catppuccin Mocha theme, and fix startup performance.
+
+**Target features:**
+- Article history — recently read list on launch screen, re-open previous articles
+- Catppuccin Mocha — official community color palette replacing custom cappuccino
+- Startup performance — profile and fix slow app launch time
+
 ---
-*Last updated: 2026-03-19 — Phase 2 complete, all v1 requirements validated*
+*Last updated: 2026-03-19 — Milestone v2.0 started*

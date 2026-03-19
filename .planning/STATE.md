@@ -1,30 +1,32 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: unknown
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-03-19T02:50:21.654Z"
+milestone: v2.0
+milestone_name: History & Polish
+status: defining_requirements
+stopped_at: Defining requirements for v2.0
+last_updated: "2026-03-19T03:00:00.000Z"
 progress:
-  total_phases: 2
-  completed_phases: 2
-  total_plans: 3
-  completed_plans: 3
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-18)
+See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** Read web articles distraction-free in the terminal — paste a URL and start reading.
-**Current focus:** Phase 02 — reader
+**Current focus:** Milestone v2.0 — History & Polish
 
 ## Current Position
 
-Phase: 02 (reader) — EXECUTING
-Plan: 2 of 2
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-19 — Milestone v2.0 started
 
 ## Performance Metrics
 
@@ -73,10 +75,11 @@ None yet.
 
 ### Blockers/Concerns
 
-- w3m must be installed (`brew install w3m`) — runtime dependency, not bundled
+- w3m dependency removed in v1 — trafilatura handles extraction now
+- Slow startup time reported — needs investigation in v2
 
 ## Session Continuity
 
-Last session: 2026-03-19T02:49:20.780Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-03-19T03:00:00.000Z
+Stopped at: Defining requirements for v2.0
 Resume file: None
