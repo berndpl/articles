@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-19T02:29:15.690Z"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-19T02:49:20.783Z"
 progress:
   total_phases: 2
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
 ---
 
 # Project State
@@ -47,6 +47,7 @@ Plan: 2 of 2
 
 *Updated after each plan completion*
 | Phase 02-reader P01 | 3 min | 2 tasks | 4 files |
+| Phase 02-reader P02 | 5 min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: CLI uses sys.argv directly — no argparse needed for single positional URL argument
 - [Phase 02-reader]: trafilatura replaces w3m — outputs markdown with headers/bold/links instead of plain text
 - [Phase 02-reader]: Cappuccino palette: dark mocha #2C1810 bg, cream #F5DEB3 fg, cinnamon #D2691E primary
+- [Phase 02-reader]: VerticalScroll+Markdown instead of MarkdownViewer — MarkdownViewer can_focus=False breaks scrolling
+- [Phase 02-reader]: max-width: 88 CSS for comfortable reading column, full-width on narrow terminals
 
 ### Pending Todos
 
@@ -74,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T02:29:15.687Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-19T02:49:20.780Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None

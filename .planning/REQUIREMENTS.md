@@ -8,7 +8,7 @@
 ### Extraction
 
 - [x] **EXTR-01**: User can provide a URL and get the web page extracted as markdown via w3m
-- [ ] **EXTR-02**: User sees a loading indicator while a page is being fetched and extracted
+- [x] **EXTR-02**: User sees a loading indicator while a page is being fetched and extracted
 
 ### Display
 
@@ -17,12 +17,12 @@
 
 ### Navigation
 
-- [ ] **NAV-01**: User can scroll article content up and down with arrow keys
-- [ ] **NAV-02**: User can page up and page down through the article
+- [x] **NAV-01**: User can scroll article content up and down with arrow keys
+- [x] **NAV-02**: User can page up and page down through the article
 
 ### Input
 
-- [ ] **INPT-01**: User can paste a URL into the TUI and it auto-browses and extracts the article
+- [x] **INPT-01**: User can paste a URL into the TUI and it auto-browses and extracts the article
 - [x] **INPT-02**: User can launch the app with an optional URL argument (`articles [url]`)
 
 ## v2 Requirements
@@ -53,10 +53,10 @@
 | INPT-02 | Phase 1 | Complete |
 | DISP-01 | Phase 2 | Complete |
 | DISP-02 | Phase 2 | Complete |
-| NAV-01 | Phase 2 | Pending |
-| NAV-02 | Phase 2 | Pending |
-| EXTR-02 | Phase 2 | Pending |
-| INPT-01 | Phase 2 | Pending |
+| NAV-01 | Phase 2 | Complete |
+| NAV-02 | Phase 2 | Complete |
+| EXTR-02 | Phase 2 | Complete |
+| INPT-01 | Phase 2 | Complete |
 
 **Coverage:**
 - v1 requirements: 8 total
