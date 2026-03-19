@@ -78,7 +78,11 @@ Plans:
   2. User can select an article from the history list and it re-opens in the reader
   3. History persists across app restarts — articles read in one session appear in the next
   4. First launch with no history shows a clean welcome screen without errors
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — History storage module (save/list/load .md files with URL frontmatter)
+- [ ] 04-02-PLAN.md — TUI history integration (OptionList display, save-on-read, back navigation)
 
 ## Progress
 
@@ -90,4 +94,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation | 1/1 | Complete | 2026-03-18 |
 | 2. Reader | 2/2 | Complete | 2026-03-19 |
 | 3. Theme & Performance | 0/1 | In progress | - |
-| 4. History | 0/? | Not started | - |
+| 4. History | 0/2 | Not started | - |
