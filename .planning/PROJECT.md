@@ -23,8 +23,8 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 
 ### Active
 
-- [ ] Article reading history — see recently read articles on launch
-- [ ] Re-open previous articles from history list
+- [x] Article reading history — see recently read articles on launch — Validated in Phase 4
+- [x] Re-open previous articles from history list — Validated in Phase 4
 - [x] Catppuccin Mocha theme — switch to official community palette — Validated in Phase 3
 - [x] Startup performance — lazy-import trafilatura for fast launch — Validated in Phase 3
 
@@ -57,15 +57,17 @@ Read web articles distraction-free in the terminal — paste a URL and start rea
 | VerticalScroll + Markdown | MarkdownViewer has can_focus=False bug — VerticalScroll enables arrow key scrolling | ✓ Validated |
 | Catppuccin Mocha theme | Official community palette, built-in Textual theme, zero custom theme code | ✓ Validated |
 | Lazy-import trafilatura | Eliminates ~518ms startup cost — import only when extract_url() called | ✓ Validated |
+| File-based history | Articles saved as .md files in history/ dir — no JSON index, filesystem IS the history | ✓ Validated |
+| h/left-arrow back nav | Replaces 'n' binding — "back" metaphor to return to history list from reader | ✓ Validated |
 
-## Current Milestone: v2.0 History & Polish
+## Current Milestone: v2.0 History & Polish — COMPLETE ✓
 
 **Goal:** Add reading history, switch to Catppuccin Mocha theme, and fix startup performance.
 
-**Target features:**
-- Article history — recently read list on launch screen, re-open previous articles
-- Catppuccin Mocha — official community color palette replacing custom cappuccino
-- Startup performance — profile and fix slow app launch time
+**Delivered:**
+- ✓ Article history — scrollable list on launch, re-open previous articles
+- ✓ Catppuccin Mocha — official community color palette
+- ✓ Startup performance — lazy-import trafilatura
 
 ---
-*Last updated: 2026-03-19 — Phase 3 complete (Catppuccin Mocha + startup perf)*
+*Last updated: 2026-03-19 — v2.0 milestone complete (all 4 phases delivered)*
