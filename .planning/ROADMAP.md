@@ -64,7 +64,10 @@ Plans:
   2. No custom theme code remains in the codebase (`theme.py` deleted or emptied)
   3. Scrollbar is not visible during article reading
   4. App launches and shows the welcome/input screen in under 500ms
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 03-01-PLAN.md — Catppuccin Mocha theme switch, theme.py cleanup, and lazy trafilatura import
 
 ### Phase 4: History
 **Goal**: Users can browse and re-open previously read articles from the launch screen
@@ -86,5 +89,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Foundation | 1/1 | Complete | 2026-03-18 |
 | 2. Reader | 2/2 | Complete | 2026-03-19 |
-| 3. Theme & Performance | 0/? | Not started | - |
+| 3. Theme & Performance | 0/1 | In progress | - |
 | 4. History | 0/? | Not started | - |
