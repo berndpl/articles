@@ -6,17 +6,12 @@ from textual import work
 from textual.app import App, ComposeResult
 from textual.containers import VerticalScroll
 from textual.events import Paste
-from textual.widgets import Footer, Markdown, Static
+from textual.widgets import Footer, Markdown, OptionList, Static
 
 from articles.extractor import extract_url
+from articles.history import list_history, load_article_content, save_article
 
 URL_PATTERN = re.compile(r"https?://[^\s<>\"]+")
-
-WELCOME_MD = """\
-# articles
-
-*Paste a URL to start reading*
-"""
 
 
 class ArticlesApp(App):
@@ -30,7 +25,12 @@ class ArticlesApp(App):
         color: $foreground;
         padding: 0 2;
     }
+    #history-list {
+        width: 100%;
+        height: 1fr;
+    }
     #content {
+        display: none;
         align-horizontal: center;
         scrollbar-size: 0 0;
     }
@@ -39,27 +39,25 @@ class ArticlesApp(App):
         margin: 0;
         padding: 1 2;
     }
-    #welcome {
-        content-align: center middle;
-        width: 100%;
-        height: 100%;
-    }
     """
 
     TITLE = "articles"
 
     BINDINGS = [
         ("q", "quit", "Quit"),
-        ("n", "new_url", "New URL"),
+        ("h", "back", "History"),
+        ("left", "back", ""),
     ]
 
     def __init__(self, url: str | None = None):
         super().__init__()
         self.theme = "catppuccin-mocha"
         self._initial_url = url
+        self._history_entries: list[dict] = []
 
     def compose(self) -> ComposeResult:
         yield Static("", id="status-bar")
+        yield OptionList(id="history-list")
         with VerticalScroll(id="content"):
             yield Markdown(id="article")
         yield Footer()
@@ -68,19 +66,49 @@ class ArticlesApp(App):
         if self._initial_url:
             self.load_article(self._initial_url)
         else:
-            self.query_one("#article", Markdown).update(WELCOME_MD)
+            self._show_history()
 
     def on_paste(self, event: Paste) -> None:
         match = URL_PATTERN.search(event.text)
         if match:
             self.load_article(match.group())
 
-    def action_new_url(self) -> None:
-        """Reset to welcome screen (bound to 'n' key)."""
-        self.query_one("#article", Markdown).update(WELCOME_MD)
-        self.query_one("#status-bar", Static).update("")
+    def _show_history(self) -> None:
+        """Populate and show the history list, hide article content."""
+        self._history_entries = list_history()
+        history_widget = self.query_one("#history-list", OptionList)
+        history_widget.clear_options()
+        for entry in self._history_entries:
+            history_widget.add_option(entry["title"])
+        history_widget.display = True
+        self.query_one("#content").display = False
+        self.query_one("#status-bar", Static).update(
+            "Paste a URL to start reading"
+        )
         self.title = "articles"
+
+    def on_option_list_option_selected(
+        self, event: OptionList.OptionSelected
+    ) -> None:
+        """Open selected article from history."""
+        idx = event.index
+        if idx < len(self._history_entries):
+            entry = self._history_entries[idx]
+            content = load_article_content(entry["path"])
+            self._display_article(content, entry["title"])
+
+    def _display_article(self, content: str, title: str) -> None:
+        """Switch to article view with given content."""
+        self.query_one("#history-list").display = False
+        self.query_one("#content").display = True
+        self.query_one("#article", Markdown).update(content)
+        self.title = title
         self.query_one("#content", VerticalScroll).scroll_home()
+        self.query_one("#status-bar", Static).update("")
+
+    def action_back(self) -> None:
+        """Return to history list (bound to 'h' and left arrow)."""
+        self._show_history()
 
     @work(thread=True, exclusive=True, group="loader")
     def load_article(self, url: str) -> None:
@@ -91,18 +119,11 @@ class ArticlesApp(App):
             f"Fetching {url}...",
         )
         try:
-            # Step 2: Extracting (trafilatura does fetch+extract together,
-            # but we show progress steps for user confidence)
             content = extract_url(url)
 
-            # Step 3: Rendering
             self.call_from_thread(
                 self.query_one("#status-bar", Static).update,
                 "Rendering...",
-            )
-            self.call_from_thread(
-                self.query_one("#article", Markdown).update,
-                content,
             )
 
             # Extract title from first markdown heading, fallback to "articles"
@@ -111,19 +132,17 @@ class ArticlesApp(App):
                 if line.startswith("# "):
                     title = line[2:].strip()
                     break
-            self.call_from_thread(setattr, self, "title", title)
 
-            # Scroll to top for new article
-            self.call_from_thread(
-                self.query_one("#content", VerticalScroll).scroll_home,
-            )
+            # Save to history
+            save_article(url, title, content)
+
+            # Switch to article view
+            self.call_from_thread(self._display_article, content, title)
         except (ValueError, RuntimeError) as exc:
-            # Error: show notification, keep current article visible
             self.call_from_thread(
                 self.notify, str(exc), severity="error", timeout=5,
             )
         finally:
-            # Clear status bar
             self.call_from_thread(
                 self.query_one("#status-bar", Static).update, "",
             )
