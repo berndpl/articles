@@ -27,10 +27,23 @@
 
 ## v2 Requirements
 
+### Theme
+
+- [ ] **THEME-01**: TUI uses the official Catppuccin Mocha color palette (built-in Textual theme)
+- [ ] **THEME-02**: Custom cappuccino theme code (`theme.py`) is removed
+- [ ] **THEME-03**: Scrollbar is hidden for a cleaner reading experience
+
+### Performance
+
+- [ ] **PERF-01**: App startup time is under 500ms (lazy-import trafilatura)
+
 ### History
 
-- **HIST-01**: User can see a list of recently read articles
-- **HIST-02**: User can re-open a previously read article
+- [ ] **HIST-01**: User can see a list of recently read articles on the launch/welcome screen
+- [ ] **HIST-02**: User can select a previous article from history to re-open it
+- [ ] **HIST-03**: Reading history persists across app sessions (JSON file storage)
+
+## Future Requirements
 
 ### Multi-article
 
@@ -40,10 +53,11 @@
 
 | Feature | Reason |
 |---------|--------|
-| Bookmarking | Keep v1 as a pure reader |
+| Bookmarking | Keep it a pure reader |
 | Offline caching | Read once, move on |
-| Custom CSS / per-site rules | w3m handles extraction uniformly |
-| Browser rendering (headless Chrome) | w3m is simpler and sufficient |
+| Custom CSS / per-site rules | trafilatura handles extraction |
+| Browser rendering (headless Chrome) | trafilatura is simpler and sufficient |
+| Custom header colors for Catppuccin | Accept default Catppuccin Mocha rendering as-is |
 
 ## Traceability
 
@@ -59,10 +73,11 @@
 | INPT-01 | Phase 2 | Complete |
 
 **Coverage:**
-- v1 requirements: 8 total
-- Mapped to phases: 8
-- Unmapped: 0
+- v1 requirements: 8 total — all complete
+- v2 requirements: 7 total
+- Mapped to phases: 8 (v1)
+- Unmapped: 7 (v2 — pending roadmap)
 
 ---
 *Requirements defined: 2026-03-18*
-*Last updated: 2026-03-18 after roadmap creation*
+*Last updated: 2026-03-19 — v2.0 requirements added*
