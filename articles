@@ -18,11 +18,9 @@ prompt_url() {
 fetch_article() {
     local url="$1"
 
-    echo "Fetching $url..."
-
-    # Extract article content as markdown via trafilatura
+    # Extract article content as markdown via trafilatura (with spinner)
     local content
-    content=$(trafilatura --output-format markdown -u "$url" 2>/dev/null)
+    content=$(gum spin --spinner dot --title "Fetching $url..." -- trafilatura --output-format markdown -u "$url" 2>/dev/null)
     if [ -z "$content" ]; then
         echo "Error: no article content found at $url" >&2
         exit 1
