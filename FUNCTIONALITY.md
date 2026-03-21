@@ -16,10 +16,11 @@ What the app does, independent of implementation.
 - **Navigation** — Switch between history list and article reader. Quit with `q`.
 - **CLI usage** — `articles` opens history; `articles <url>` fetches and displays directly.
 
-## Rewrite Stack
+## Tech Stack
 
-- **Fetch + convert**: `w3m -dump <url>` (plain text extraction, zero deps)
-- **Save**: `.md` files in `~/.articles/` (or configurable dir)
-- **Read/browse history**: `glow` TUI (built-in file browser + renderer)
-- **Glue**: Pure bash script — `fzf` and `gum` available if needed
-- **No Python, no pip, no venv** — just shell + tools already on the system
+- **Fetch + extract**: `trafilatura` CLI (installed via pipx) — article-only extraction as markdown
+- **Read/render**: `glow` — terminal markdown renderer with built-in TUI file browser
+- **UI prompts**: `gum` — input prompt for URL paste, spinner while fetching
+- **Save**: `.md` files in `~/articles/`
+- **Glue**: Pure bash script (~60 lines)
+- **Dependencies**: `trafilatura`, `glow`, `gum` (all via Homebrew / pipx)
