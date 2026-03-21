@@ -2,7 +2,7 @@
 # articles — fetch web articles and browse them in the terminal
 set -euo pipefail
 
-ARTICLES_DIR="${ARTICLES_DIR:-$HOME/.articles}"
+ARTICLES_DIR="${ARTICLES_DIR:-$HOME/articles}"
 mkdir -p "$ARTICLES_DIR"
 
 fetch_article() {
@@ -56,8 +56,7 @@ browse_history() {
         echo "No saved articles yet. Usage: articles <url>"
         exit 0
     fi
-    cd "$ARTICLES_DIR"
-    glow
+    glow "$ARTICLES_DIR"
 }
 
 # --- main ---
