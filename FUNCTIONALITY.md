@@ -16,8 +16,10 @@ What the app does, independent of implementation.
 - **Navigation** — Switch between history list and article reader. Quit with `q`.
 - **CLI usage** — `articles` opens history; `articles <url>` fetches and displays directly.
 
-## What Changes in the Rewrite
+## Rewrite Stack
 
-- Use **w3m** (or similar) for fetching/converting web pages to markdown instead of trafilatura
-- History view is just a **file browser** over the saved `.md` files
-- Explore simpler tech: possibly pure bash + a lightweight TUI framework instead of Python/Textual
+- **Fetch + convert**: `w3m -dump <url>` (plain text extraction, zero deps)
+- **Save**: `.md` files in `~/.articles/` (or configurable dir)
+- **Read/browse history**: `glow` TUI (built-in file browser + renderer)
+- **Glue**: Pure bash script — `fzf` and `gum` available if needed
+- **No Python, no pip, no venv** — just shell + tools already on the system
