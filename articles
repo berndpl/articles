@@ -112,7 +112,7 @@ process_article() {
     strip_frontmatter "$filepath" > "$tmpin"
 
     gum spin --spinner dot --title "Processing with '$choice'..." -- \
-        bash -c "cat '$tmpin' | mods '$prompt' > '$tmpout'" 2>/dev/null || true
+        bash -c "cat '$tmpin' | crush run '$prompt' --quiet > '$tmpout'" 2>/dev/null || true
 
     if [ -s "$tmpout" ]; then
         glow -p "$tmpout"
