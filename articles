@@ -6,7 +6,18 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 # Resolve symlink to real script location
 [ -L "$0" ] && SCRIPT_DIR="$(cd "$(dirname "$(readlink "$0")")" && pwd -P)"
 ARTICLES_DIR="${ARTICLES_DIR:-$SCRIPT_DIR/history}"
-mkdir -p "$ARTICLES_DIR"
+PROMPTS_DIR="${PROMPTS_DIR:-$SCRIPT_DIR/prompts}"
+mkdir -p "$ARTICLES_DIR" "$PROMPTS_DIR"
+
+# --- Preset prompts (create defaults if dir is empty) ---
+init_prompts() {
+    [ -n "$(ls -A "$PROMPTS_DIR" 2>/dev/null)" ] && return
+    echo "Summarize this article in 3-5 bullet points." > "$PROMPTS_DIR/summarize.txt"
+    echo "Extract the key arguments and counter-arguments from this article." > "$PROMPTS_DIR/arguments.txt"
+    echo "What are the main takeaways and action items from this article?" > "$PROMPTS_DIR/takeaways.txt"
+    echo "Critique this article. What claims lack evidence? What is the author's bias?" > "$PROMPTS_DIR/critique.txt"
+    echo "Explain this article in simple terms, as if to someone unfamiliar with the topic." > "$PROMPTS_DIR/eli5.txt"
+}
 
 prompt_url() {
     local input
@@ -65,6 +76,52 @@ fetch_article() {
     browse_history
 }
 
+# Strip YAML frontmatter from an article file
+strip_frontmatter() {
+    awk 'BEGIN{fm=0} /^---$/{fm++; next} fm>=2||fm==0{print}' "$1"
+}
+
+# Process an article with a selected prompt via mods
+process_article() {
+    local filepath="$1"
+
+    init_prompts
+    local prompt_files=("$PROMPTS_DIR"/*.txt)
+    if [ ${#prompt_files[@]} -eq 0 ]; then
+        echo "No prompts found in $PROMPTS_DIR/"
+        return
+    fi
+
+    # Build display names from filenames (strip path + extension)
+    local names=()
+    for f in "${prompt_files[@]}"; do
+        names+=("$(basename "$f" .txt)")
+    done
+
+    local choice
+    choice=$(printf '%s\n' "${names[@]}" | gum choose --header "Process article with prompt:") || return
+
+    local prompt
+    prompt=$(cat "$PROMPTS_DIR/${choice}.txt")
+
+    local tmpout
+    tmpout=$(mktemp /tmp/articles-mods-XXXXXX.md)
+    local tmpin
+    tmpin=$(mktemp /tmp/articles-mods-in-XXXXXX.md)
+
+    strip_frontmatter "$filepath" > "$tmpin"
+
+    gum spin --spinner dot --title "Processing with '$choice'..." -- \
+        bash -c "cat '$tmpin' | mods '$prompt' > '$tmpout'" 2>/dev/null || true
+
+    if [ -s "$tmpout" ]; then
+        glow -p "$tmpout"
+    else
+        echo "Processing failed or returned empty output."
+    fi
+    rm -f "$tmpout" "$tmpin"
+}
+
 browse_history() {
     if [ -z "$(ls -A "$ARTICLES_DIR" 2>/dev/null)" ]; then
         echo "No saved articles yet."
@@ -78,8 +135,34 @@ browse_history() {
 
     if [[ "$input" =~ ^https?:// ]]; then
         fetch_article "$input"
+        return
+    fi
+
+    # fzf-based browser: Enter=read, →=process with prompt
+    local selected
+    selected=$(
+        ls -t "$ARTICLES_DIR"/*.md 2>/dev/null |
+        fzf --header="Enter: read  →: process with AI  Esc: quit" \
+            --expect=right,enter \
+            --preview="glow -w 80 {}" \
+            --preview-window=right:60%:wrap \
+            --delimiter='/' --with-nth=-1 \
+            --no-info
+    ) || { return; }
+
+    local action
+    action=$(echo "$selected" | head -1)
+    local filepath
+    filepath=$(echo "$selected" | tail -1)
+
+    [ -z "$filepath" ] && return
+
+    if [ "$action" = "right" ]; then
+        process_article "$filepath"
+        browse_history
     else
-        glow "$ARTICLES_DIR"
+        glow -p "$filepath"
+        browse_history
     fi
 }
 
