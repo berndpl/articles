@@ -104,17 +104,7 @@ process_article() {
     local prompt
     prompt=$(cat "$PROMPTS_DIR/${choice}.txt")
 
-    local tmpout
-    tmpout=$(mktemp /tmp/articles-crush-XXXXXX.md)
-
-    strip_frontmatter "$filepath" | crush run "$prompt" --quiet > "$tmpout" 2>&1 || true
-
-    if [ -s "$tmpout" ]; then
-        glow -p "$tmpout"
-    else
-        echo "Processing failed or returned empty output."
-    fi
-    rm -f "$tmpout"
+    strip_frontmatter "$filepath" | crush run "$prompt"
 }
 
 browse_history() {
