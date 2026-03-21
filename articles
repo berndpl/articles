@@ -8,27 +8,41 @@ mkdir -p "$ARTICLES_DIR"
 fetch_article() {
     local url="$1"
 
-    # Extract page title via w3m
-    local title
-    title=$(w3m -dump "$url" | head -1 | sed 's/[^a-zA-Z0-9 ]//g' | xargs)
-    [ -z "$title" ] && title="untitled"
+    echo "Fetching $url..."
 
-    # Slugify: lowercase, spaces→hyphens, truncate
+    # Extract article content as markdown via trafilatura
+    local content
+    content=$(trafilatura --output-format markdown -u "$url" 2>/dev/null)
+    if [ -z "$content" ]; then
+        echo "Error: no article content found at $url" >&2
+        exit 1
+    fi
+
+    # Extract title from first markdown heading, fallback to URL slug
+    local title
+    title=$(echo "$content" | grep -m1 '^# ' | sed 's/^# //')
+    [ -z "$title" ] && title=$(echo "$url" | sed 's|.*/||; s|[?#].*||')
+
+    # Slugify: lowercase, strip non-alnum, spaces→hyphens, truncate
     local slug
-    slug=$(echo "$title" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | cut -c1-60)
+    slug=$(echo "$title" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9 -]//g' | tr ' ' '-' | sed 's/--*/-/g' | cut -c1-60)
+    [ -z "$slug" ] && slug="untitled"
 
     local date_prefix
     date_prefix=$(date +%y%m%d)
     local filename="${date_prefix}-${slug}.md"
     local filepath="$ARTICLES_DIR/$filename"
 
-    # Fetch and save with URL in frontmatter
+    # Remove existing file for same URL (duplicate handling)
+    grep -rl "^url: $url$" "$ARTICLES_DIR" 2>/dev/null | xargs rm -f
+
+    # Save with URL in frontmatter
     {
         echo "---"
         echo "url: $url"
         echo "---"
         echo ""
-        w3m -dump "$url"
+        echo "$content"
     } > "$filepath"
 
     echo "Saved: $filepath"
