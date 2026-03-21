@@ -35,7 +35,7 @@ def save_article(url: str, title: str, content: str) -> Path:
     return filepath
 
 
-def list_history() -> list[dict]:
+def list_history(include_url: bool = True) -> list[dict]:
     """Return history entries sorted by filename descending (most recent first).
 
     Each entry is a dict with keys: title, url, path.
@@ -47,8 +47,10 @@ def list_history() -> list[dict]:
     entries = []
     for path in sorted(HISTORY_DIR.glob("*.md"), reverse=True):
         title = _title_from_filename(path.stem)
-        url = _read_url_from_frontmatter(path)
-        entries.append({"title": title, "url": url, "path": path})
+        entry = {"title": title, "url": "", "path": path}
+        if include_url:
+            entry["url"] = _read_url_from_frontmatter(path)
+        entries.append(entry)
     return entries
 
 

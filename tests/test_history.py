@@ -117,6 +117,15 @@ def test_list_most_recent_first(tmp_history):
     assert entries[1]["title"] == "Older"
 
 
+def test_list_can_skip_url_reads(tmp_history):
+    """History launch path can avoid opening every file for its URL."""
+    save_article("https://a.com", "Article A", "content a")
+    with patch("articles.history._read_url_from_frontmatter") as mock_read:
+        entries = list_history(include_url=False)
+    mock_read.assert_not_called()
+    assert entries[0]["url"] == ""
+
+
 # --- load_article_content tests ---
 
 
