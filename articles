@@ -105,21 +105,24 @@ process_article() {
     prompt=$(cat "$PROMPTS_DIR/${choice}.txt")
 
     local tmpout
-    tmpout=$(mktemp /tmp/articles-mods-XXXXXX.md)
+    tmpout=$(mktemp /tmp/articles-crush-XXXXXX.md)
     local tmpin
-    tmpin=$(mktemp /tmp/articles-mods-in-XXXXXX.md)
+    tmpin=$(mktemp /tmp/articles-crush-in-XXXXXX.md)
+    local tmpprompt
+    tmpprompt=$(mktemp /tmp/articles-crush-prompt-XXXXXX.txt)
 
     strip_frontmatter "$filepath" > "$tmpin"
+    echo "$prompt" > "$tmpprompt"
 
     gum spin --spinner dot --title "Processing with '$choice'..." -- \
-        bash -c "cat '$tmpin' | crush run '$prompt' --quiet > '$tmpout'" 2>/dev/null || true
+        bash -c 'cat "$1" | crush run "$(cat "$2")" --quiet > "$3"' _ "$tmpin" "$tmpprompt" "$tmpout" 2>/dev/null || true
 
     if [ -s "$tmpout" ]; then
         glow -p "$tmpout"
     else
         echo "Processing failed or returned empty output."
     fi
-    rm -f "$tmpout" "$tmpin"
+    rm -f "$tmpout" "$tmpin" "$tmpprompt"
 }
 
 browse_history() {
