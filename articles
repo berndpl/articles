@@ -1,3 +1,54 @@
 #!/usr/bin/env bash
-DIR="$(cd "$(dirname "$0")" && pwd)"
-exec "$DIR/venv/bin/articles" "$@"
+# articles — fetch web articles and browse them in the terminal
+set -euo pipefail
+
+ARTICLES_DIR="${ARTICLES_DIR:-$HOME/.articles}"
+mkdir -p "$ARTICLES_DIR"
+
+fetch_article() {
+    local url="$1"
+
+    # Extract page title via w3m
+    local title
+    title=$(w3m -dump "$url" | head -1 | sed 's/[^a-zA-Z0-9 ]//g' | xargs)
+    [ -z "$title" ] && title="untitled"
+
+    # Slugify: lowercase, spaces→hyphens, truncate
+    local slug
+    slug=$(echo "$title" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | cut -c1-60)
+
+    local date_prefix
+    date_prefix=$(date +%y%m%d)
+    local filename="${date_prefix}-${slug}.md"
+    local filepath="$ARTICLES_DIR/$filename"
+
+    # Fetch and save with URL in frontmatter
+    {
+        echo "---"
+        echo "url: $url"
+        echo "---"
+        echo ""
+        w3m -dump "$url"
+    } > "$filepath"
+
+    echo "Saved: $filepath"
+
+    # Open for reading
+    glow -p "$filepath"
+}
+
+browse_history() {
+    if [ -z "$(ls -A "$ARTICLES_DIR" 2>/dev/null)" ]; then
+        echo "No saved articles yet. Usage: articles <url>"
+        exit 0
+    fi
+    cd "$ARTICLES_DIR"
+    glow
+}
+
+# --- main ---
+if [ $# -eq 0 ]; then
+    browse_history
+else
+    fetch_article "$1"
+fi
