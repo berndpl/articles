@@ -23,7 +23,7 @@ fetch_article() {
     content=$(gum spin --spinner dot --title "Fetching $url..." -- trafilatura --output-format markdown -u "$url" 2>/dev/null)
     if [ -z "$content" ]; then
         echo "Error: no article content found at $url" >&2
-        exit 1
+        return 1
     fi
 
     # Extract title from first markdown heading, fallback to URL slug
@@ -42,7 +42,7 @@ fetch_article() {
     local filepath="$ARTICLES_DIR/$filename"
 
     # Remove existing file for same URL (duplicate handling)
-    grep -rl "^url: $url$" "$ARTICLES_DIR" 2>/dev/null | xargs rm -f
+    grep -rl "^url: $url$" "$ARTICLES_DIR" 2>/dev/null | xargs rm -f || true
 
     # Save with URL in frontmatter
     {
