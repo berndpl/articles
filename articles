@@ -2,7 +2,10 @@
 # articles — fetch web articles and browse them in the terminal
 set -euo pipefail
 
-ARTICLES_DIR="${ARTICLES_DIR:-$HOME/articles}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
+# Resolve symlink to real script location
+[ -L "$0" ] && SCRIPT_DIR="$(cd "$(dirname "$(readlink "$0")")" && pwd -P)"
+ARTICLES_DIR="${ARTICLES_DIR:-$SCRIPT_DIR/history}"
 mkdir -p "$ARTICLES_DIR"
 
 prompt_url() {

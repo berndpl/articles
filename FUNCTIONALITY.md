@@ -21,6 +21,6 @@ What the app does, independent of implementation.
 - **Fetch + extract**: `trafilatura` CLI (installed via pipx) — article-only extraction as markdown
 - **Read/render**: `glow` — terminal markdown renderer with built-in TUI file browser
 - **UI prompts**: `gum` — input prompt for URL paste, spinner while fetching
-- **Save**: `.md` files in `~/articles/`
+- **Save**: `.md` files in `history/` subfolder (relative to script)
 - **Glue**: Pure bash script (~60 lines)
 - **Dependencies**: `trafilatura`, `glow`, `gum` (all via Homebrew / pipx)
