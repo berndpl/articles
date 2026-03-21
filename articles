@@ -5,6 +5,16 @@ set -euo pipefail
 ARTICLES_DIR="${ARTICLES_DIR:-$HOME/articles}"
 mkdir -p "$ARTICLES_DIR"
 
+prompt_url() {
+    local input
+    input=$(gum input --placeholder "Paste a URL to read" --width 80 --char-limit 500) || true
+    if [[ "$input" =~ ^https?:// ]]; then
+        fetch_article "$input"
+    else
+        echo "No URL provided."
+    fi
+}
+
 fetch_article() {
     local url="$1"
 
@@ -53,10 +63,20 @@ fetch_article() {
 
 browse_history() {
     if [ -z "$(ls -A "$ARTICLES_DIR" 2>/dev/null)" ]; then
-        echo "No saved articles yet. Usage: articles <url>"
-        exit 0
+        echo "No saved articles yet."
+        prompt_url
+        return
     fi
-    glow "$ARTICLES_DIR"
+
+    # Prompt: paste URL or browse
+    local input
+    input=$(gum input --placeholder "Paste a URL, or press Enter to browse history" --width 80 --char-limit 500) || true
+
+    if [[ "$input" =~ ^https?:// ]]; then
+        fetch_article "$input"
+    else
+        glow "$ARTICLES_DIR"
+    fi
 }
 
 # --- main ---
