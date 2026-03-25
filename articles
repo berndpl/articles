@@ -42,7 +42,7 @@ fetch_article() {
 
     # Extract title from first markdown heading, fallback to URL slug
     local title
-    title=$(echo "$content" | grep -m1 '^# ' | sed 's/^# //')
+    title=$(echo "$content" | grep -m1 '^# ' | sed 's/^# //' || true)
     [ -z "$title" ] && title=$(echo "$url" | sed 's|.*/||; s|[?#].*||')
 
     # Slugify: lowercase, strip non-alnum, spaces→hyphens, truncate
