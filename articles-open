@@ -12,6 +12,6 @@ fi
 osascript -e "
 tell application \"Terminal\"
     activate
-    do script \"articles '${url//\'/\\'}'\"
+    do script \"$HOME/.local/bin/articles '${url//\'/\\'}'\"
 end tell
 "
