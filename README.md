@@ -23,6 +23,25 @@ articles <url>        # fetch and read an article
 
 Articles are saved with YAML frontmatter containing the source URL. Filenames follow `YYMMDD-slugified-title.md`. Fetching the same URL again replaces the old file.
 
+## Safari Share Integration
+
+Read articles directly from Safari without switching to the terminal first.
+
+### Setup (one time)
+
+1. Open **Shortcuts.app**
+2. Create a new shortcut named **Read Article**
+3. Add a **Run Shell Script** action with:
+   - Shell: `/bin/bash`
+   - Input: **Shortcut Input**
+   - Script: `articles-open "$1"`
+4. In the shortcut details (ⓘ), enable **Use as Quick Action** → **Share Sheet**
+5. Set **Share Sheet Types** to **URLs** only
+
+### Usage
+
+In Safari, tap the **Share** button (or ⌘⇧S) → choose **Read Article**. Terminal.app opens and displays the article.
+
 ## Dependencies
 
 - [trafilatura](https://trafilatura.readthedocs.io/) — article extraction (`pipx install trafilatura`)

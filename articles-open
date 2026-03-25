@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# articles-open — open an article URL in Terminal.app
+# Designed to be called from an Apple Shortcut (Safari Share sheet).
+set -euo pipefail
+
+url="${1:-}"
+if [ -z "$url" ]; then
+  echo "Usage: articles-open <url>" >&2
+  exit 1
+fi
+
+osascript -e "
+tell application \"Terminal\"
+    activate
+    do script \"articles '${url//\'/\\'}'\"
+end tell
+"

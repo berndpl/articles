@@ -69,11 +69,8 @@ fetch_article() {
 
     echo "Saved: $filepath"
 
-    # Open for reading
+    # Open for reading; quitting glow exits the app
     glow -p "$filepath"
-
-    # Return to browse after reading
-    browse_history
 }
 
 # Strip YAML frontmatter from an article file
@@ -146,8 +143,8 @@ browse_history() {
         process_article "$filepath"
         browse_history
     else
+        # Quitting glow exits the app
         glow -p "$filepath"
-        browse_history
     fi
 }
 
