@@ -3,7 +3,11 @@
 # Designed to be called from an Apple Shortcut (Safari Share sheet).
 set -euo pipefail
 
+# Accept URL as argument or via stdin (Shortcuts passes via stdin)
 url="${1:-}"
+if [ -z "$url" ]; then
+  url=$(cat)
+fi
 if [ -z "$url" ]; then
   echo "Usage: articles-open <url>" >&2
   exit 1
