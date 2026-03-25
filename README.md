@@ -31,16 +31,17 @@ Read articles directly from Safari without switching to the terminal first.
 
 1. Open **Shortcuts.app**
 2. Create a new shortcut named **Read Article**
-3. Add a **Run Shell Script** action with:
-   - Shell: `/bin/bash`
-   - Pass Input: **as arguments**
-   - Script:
-     ```
-     osascript -e "tell application \"Terminal\"
-         activate
-         do script \"$HOME/.local/bin/articles '$1'\"
-     end tell"
-     ```
+3. Add a single **Run AppleScript** action with this code:
+   ```applescript
+   on run {input, parameters}
+       set theURL to (item 1 of input) as text
+       tell application "Terminal"
+           activate
+           do script "/Users/berndplontsch/.local/bin/articles '" & theURL & "'"
+       end tell
+       return input
+   end run
+   ```
 4. In the shortcut details (ⓘ), enable **Show in Share Sheet**
 5. Set **Share Sheet Types** to **URLs** only
 
