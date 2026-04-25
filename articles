@@ -9,6 +9,126 @@ ARTICLES_DIR="${ARTICLES_DIR:-$SCRIPT_DIR/history}"
 PROMPTS_DIR="${PROMPTS_DIR:-$SCRIPT_DIR/prompts}"
 mkdir -p "$ARTICLES_DIR" "$PROMPTS_DIR"
 
+missing_commands() {
+    local cmd
+    for cmd in "$@"; do
+        if ! command -v "$cmd" >/dev/null 2>&1; then
+            printf '%s\n' "$cmd"
+        fi
+    done
+}
+
+require_commands() {
+    local missing=()
+    local line
+    local missing_count=0
+    while IFS= read -r line; do
+        if [ -n "$line" ]; then
+            missing+=("$line")
+            missing_count=$((missing_count + 1))
+        fi
+    done < <(missing_commands "$@")
+
+    if [ "$missing_count" -gt 0 ]; then
+        echo "Missing dependencies: ${missing[*]}" >&2
+        echo "Install them and try again." >&2
+        return 1
+    fi
+}
+
+brew_install() {
+    local formulae=("$@")
+    [ $# -eq 0 ] && return 0
+
+    if ! command -v brew >/dev/null 2>&1; then
+        echo "Homebrew is required to install: ${formulae[*]}" >&2
+        echo "Install Homebrew from https://brew.sh and rerun articles." >&2
+        return 1
+    fi
+
+    echo "Installing with Homebrew: ${formulae[*]}"
+    brew install "${formulae[@]}"
+}
+
+ensure_pipx() {
+    if command -v pipx >/dev/null 2>&1; then
+        return 0
+    fi
+
+    brew_install pipx
+}
+
+pipx_bin_dir() {
+    if command -v brew >/dev/null 2>&1; then
+        brew --prefix bin
+    else
+        echo "$HOME/.local/bin"
+    fi
+}
+
+pipx_install_app() {
+    local package="$1"
+    local app="$2"
+    local bin_dir
+    bin_dir="$(pipx_bin_dir)"
+
+    echo "Installing $package with pipx..."
+    PIPX_BIN_DIR="$bin_dir" pipx install "$package"
+    hash -r
+
+    if ! command -v "$app" >/dev/null 2>&1; then
+        echo "Installed $package, but $app is still not on PATH." >&2
+        echo "Expected binary directory: $bin_dir" >&2
+        return 1
+    fi
+}
+
+install_dependencies() {
+    local missing=()
+    local brew_formulae=()
+    local missing_count=0
+    local brew_count=0
+    local need_pipx=0
+    local dep
+    while IFS= read -r dep; do
+        if [ -n "$dep" ]; then
+            missing+=("$dep")
+            missing_count=$((missing_count + 1))
+        fi
+    done < <(missing_commands "$@")
+
+    [ "$missing_count" -gt 0 ] || return 0
+
+    for dep in "${missing[@]}"; do
+        case "$dep" in
+            gum|glow|fzf|crush)
+                brew_formulae+=("$dep")
+                brew_count=$((brew_count + 1))
+                ;;
+            trafilatura)
+                need_pipx=1
+                ;;
+            *)
+                echo "Don't know how to auto-install dependency: $dep" >&2
+                return 1
+                ;;
+        esac
+    done
+
+    if [ "$brew_count" -gt 0 ]; then
+        brew_install "${brew_formulae[@]}"
+    fi
+
+    if [ "$need_pipx" -eq 1 ]; then
+        ensure_pipx
+        if ! command -v trafilatura >/dev/null 2>&1; then
+            pipx_install_app trafilatura trafilatura
+        fi
+    fi
+
+    require_commands "$@"
+}
+
 # --- Preset prompts (create defaults if dir is empty) ---
 init_prompts() {
     [ -n "$(ls -A "$PROMPTS_DIR" 2>/dev/null)" ] && return
@@ -20,6 +140,8 @@ init_prompts() {
 }
 
 prompt_url() {
+    install_dependencies gum trafilatura glow
+
     local input
     input=$(gum input --placeholder "Paste a URL to read" --width 80 --char-limit 500) || true
     if [[ "$input" =~ ^https?:// ]]; then
@@ -30,11 +152,16 @@ prompt_url() {
 }
 
 fetch_article() {
+    install_dependencies gum trafilatura glow
+
     local url="$1"
 
     # Extract article content as markdown via trafilatura (with spinner)
     local content
-    content=$(gum spin --spinner dot --title "Fetching $url..." -- trafilatura --output-format markdown -u "$url" 2>/dev/null)
+    if ! content=$(gum spin --spinner dot --title "Fetching $url..." -- trafilatura --output-format markdown -u "$url" 2>/dev/null); then
+        echo "Error: failed to fetch article content from $url" >&2
+        return 1
+    fi
     if [ -z "$content" ]; then
         echo "Error: no article content found at $url" >&2
         return 1
@@ -80,6 +207,8 @@ strip_frontmatter() {
 
 # Process an article with a selected prompt via mods
 process_article() {
+    install_dependencies gum crush
+
     local filepath="$1"
 
     init_prompts
@@ -105,6 +234,8 @@ process_article() {
 }
 
 browse_history() {
+    install_dependencies gum glow fzf
+
     if [ -z "$(ls -A "$ARTICLES_DIR" 2>/dev/null)" ]; then
         echo "No saved articles yet."
         prompt_url
