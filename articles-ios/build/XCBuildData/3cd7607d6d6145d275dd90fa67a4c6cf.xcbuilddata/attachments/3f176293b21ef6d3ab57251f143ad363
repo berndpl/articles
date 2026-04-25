@@ -1,0 +1,15 @@
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Models/Article.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Views/ArticleBodyView.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Services/ArticleExtractor.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Services/ArticleIngestionService.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Persistence/ArticleRepository.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Views/ArticleRowView.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/App/ArticlesApp.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/App/ContentView.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/App/HistoryView.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/App/ReadabilityExtractor.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/App/ReadabilityJS.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/App/ReaderView.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Persistence/SharedStore.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Utilities/URLCanonicalizer.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesIOS.build/DerivedSources/GeneratedAssetSymbols.swift

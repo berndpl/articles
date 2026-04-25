@@ -1,0 +1,99 @@
+{
+  "" : {
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticlesShareExtension-primary.dia",
+    "emit-module-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticlesShareExtension-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticlesShareExtension-primary-emit-module.dia",
+    "pch" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticlesShareExtension-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticlesShareExtension-primary.swiftdeps"
+  },
+  "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/ShareExtension/ShareViewController.swift" : {
+    "const-values" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareViewController.swiftconstvalues",
+    "dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareViewController.d",
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareViewController.dia",
+    "index-unit-output-path" : "/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareViewController.o",
+    "llvm-bc" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareViewController.bc",
+    "object" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareViewController.o",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareViewController.swiftdeps",
+    "swiftmodule" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareViewController~partial.swiftmodule"
+  },
+  "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Models/Article.swift" : {
+    "const-values" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/Article.swiftconstvalues",
+    "dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/Article.d",
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/Article.dia",
+    "index-unit-output-path" : "/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/Article.o",
+    "llvm-bc" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/Article.bc",
+    "object" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/Article.o",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/Article.swiftdeps",
+    "swiftmodule" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/Article~partial.swiftmodule"
+  },
+  "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Persistence/ArticleRepository.swift" : {
+    "const-values" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRepository.swiftconstvalues",
+    "dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRepository.d",
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRepository.dia",
+    "index-unit-output-path" : "/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRepository.o",
+    "llvm-bc" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRepository.bc",
+    "object" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRepository.o",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRepository.swiftdeps",
+    "swiftmodule" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRepository~partial.swiftmodule"
+  },
+  "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Persistence/SharedStore.swift" : {
+    "const-values" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/SharedStore.swiftconstvalues",
+    "dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/SharedStore.d",
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/SharedStore.dia",
+    "index-unit-output-path" : "/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/SharedStore.o",
+    "llvm-bc" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/SharedStore.bc",
+    "object" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/SharedStore.o",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/SharedStore.swiftdeps",
+    "swiftmodule" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/SharedStore~partial.swiftmodule"
+  },
+  "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Services/ArticleExtractor.swift" : {
+    "const-values" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleExtractor.swiftconstvalues",
+    "dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleExtractor.d",
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleExtractor.dia",
+    "index-unit-output-path" : "/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleExtractor.o",
+    "llvm-bc" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleExtractor.bc",
+    "object" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleExtractor.o",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleExtractor.swiftdeps",
+    "swiftmodule" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleExtractor~partial.swiftmodule"
+  },
+  "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Services/ArticleIngestionService.swift" : {
+    "const-values" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleIngestionService.swiftconstvalues",
+    "dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleIngestionService.d",
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleIngestionService.dia",
+    "index-unit-output-path" : "/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleIngestionService.o",
+    "llvm-bc" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleIngestionService.bc",
+    "object" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleIngestionService.o",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleIngestionService.swiftdeps",
+    "swiftmodule" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleIngestionService~partial.swiftmodule"
+  },
+  "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Utilities/URLCanonicalizer.swift" : {
+    "const-values" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/URLCanonicalizer.swiftconstvalues",
+    "dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/URLCanonicalizer.d",
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/URLCanonicalizer.dia",
+    "index-unit-output-path" : "/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/URLCanonicalizer.o",
+    "llvm-bc" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/URLCanonicalizer.bc",
+    "object" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/URLCanonicalizer.o",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/URLCanonicalizer.swiftdeps",
+    "swiftmodule" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/URLCanonicalizer~partial.swiftmodule"
+  },
+  "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Views/ArticleRowView.swift" : {
+    "const-values" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRowView.swiftconstvalues",
+    "dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRowView.d",
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRowView.dia",
+    "index-unit-output-path" : "/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRowView.o",
+    "llvm-bc" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRowView.bc",
+    "object" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRowView.o",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRowView.swiftdeps",
+    "swiftmodule" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ArticleRowView~partial.swiftmodule"
+  },
+  "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Views/ShareStatusView.swift" : {
+    "const-values" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareStatusView.swiftconstvalues",
+    "dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareStatusView.d",
+    "diagnostics" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareStatusView.dia",
+    "index-unit-output-path" : "/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareStatusView.o",
+    "llvm-bc" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareStatusView.bc",
+    "object" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareStatusView.o",
+    "swift-dependencies" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareStatusView.swiftdeps",
+    "swiftmodule" : "/Users/berndplontsch/PARALocal/apps/articles/articles-ios/build/ArticlesIOS.build/Debug-iphoneos/ArticlesShareExtension.build/Objects-normal/arm64/ShareStatusView~partial.swiftmodule"
+  }
+}

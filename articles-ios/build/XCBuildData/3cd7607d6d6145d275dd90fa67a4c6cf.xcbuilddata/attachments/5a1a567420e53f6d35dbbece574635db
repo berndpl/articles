@@ -1,0 +1,9 @@
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Models/Article.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Services/ArticleExtractor.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Services/ArticleIngestionService.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Persistence/ArticleRepository.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Views/ArticleRowView.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Views/ShareStatusView.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/ShareExtension/ShareViewController.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Persistence/SharedStore.swift
+/Users/berndplontsch/PARALocal/apps/articles/articles-ios/Shared/Utilities/URLCanonicalizer.swift

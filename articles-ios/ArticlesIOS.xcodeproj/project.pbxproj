@@ -24,6 +24,7 @@
 		43B99A616070D6876690F079 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B61677F13592F7C590935 /* Assets.xcassets */; };
 		470ED0E95E35272EC62B39ED /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EC0E342DB2D91FC265EF7B /* Article.swift */; };
 		47B4DEA119376735D730AFB0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD9005E97F786FB2DCDEC2C /* ContentView.swift */; };
+		AA11CC33DD44EE5566778899 /* ArticleSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22DD44EE55FF6677889900 /* ArticleSpeechSynthesizer.swift */; };
 		4F1B1CF0331753B0091C26A5 /* ArticleExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22431BA5E2A7F2618AB03828 /* ArticleExtractor.swift */; };
 		59D565DC0A6F4C598E524CA2 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EC0E342DB2D91FC265EF7B /* Article.swift */; };
 		62FE8BE698224DFFB3FC770C /* ArticleExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1CEAC5D52977C6A1A4EC7 /* ArticleExtractorTests.swift */; };
@@ -51,6 +52,7 @@
 		E05A222FDF4F4B626A4BE359 /* ArticlesShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0ED23F90C4C2B13E79CF8196 /* ArticlesShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E451282DFCA46D5F2C5A4072 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85D9DA5B23A9B47B971E75BB /* WidgetKit.framework */; };
 		E499880FECBEBB6F37645018 /* ArticleIngestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78D034258F79849A696F7E /* ArticleIngestionService.swift */; };
+		FA2B63EA78BE4027B80BC257 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7BE7246FF0B34E46AE1BCFD8 /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,15 +88,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0ED23F90C4C2B13E79CF8196 /* ArticlesShareExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ArticlesShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ED23F90C4C2B13E79CF8196 /* ArticlesShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ArticlesShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		135092A4C95401F967A6488C /* ArticlesShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ArticlesShareExtension.entitlements; sourceTree = "<group>"; };
+		BB22DD44EE55FF6677889900 /* ArticleSpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSpeechSynthesizer.swift; sourceTree = "<group>"; };
 		22431BA5E2A7F2618AB03828 /* ArticleExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleExtractor.swift; sourceTree = "<group>"; };
-		229E96D2ED3C446AAC6069AB /* ArticlesIOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ArticlesIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		229E96D2ED3C446AAC6069AB /* ArticlesIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArticlesIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35BDC692158250AB6595557C /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
 		40A9A1EB80ED8A24B3909291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		47EC0E342DB2D91FC265EF7B /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		5251D79690678932677C3F24 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		5276FA8D7FA65E3D822EBA6A /* ArticlesWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ArticlesWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5276FA8D7FA65E3D822EBA6A /* ArticlesWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ArticlesWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C282971D11E7CEF26ACE27 /* ArticlesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesWidget.swift; sourceTree = "<group>"; };
 		65FD2988A76FBC1D8EE8E963 /* SharedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStore.swift; sourceTree = "<group>"; };
 		6B106B666D68A38618C4BD14 /* ArticleBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleBodyView.swift; sourceTree = "<group>"; };
@@ -102,13 +105,14 @@
 		79BCB7FBD630F1D9C2E80AFB /* ReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
 		7A7B61677F13592F7C590935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A80B07756E4FF1C2DB26E16 /* URLCanonicalizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLCanonicalizerTests.swift; sourceTree = "<group>"; };
+		7BE7246FF0B34E46AE1BCFD8 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		7C92F6011A27FB1BA253922A /* ArticleRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepositoryTests.swift; sourceTree = "<group>"; };
 		7E4A1C075DFEFC041B7C6053 /* ReadabilityJS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadabilityJS.swift; sourceTree = "<group>"; };
 		82DAE56225C600F4983AD151 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		85D9DA5B23A9B47B971E75BB /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		98CE43419CC5BA67BB4325D0 /* ArticlesWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ArticlesWidget.entitlements; sourceTree = "<group>"; };
 		A310E004276096C77297E478 /* ArticleRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRowView.swift; sourceTree = "<group>"; };
-		A430993A8C9005EA5342C393 /* ArticlesIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ArticlesIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A430993A8C9005EA5342C393 /* ArticlesIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArticlesIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A43C1D06F3E6A1A914DFE7D1 /* ArticlesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesApp.swift; sourceTree = "<group>"; };
 		B8E2148354444B5EAF8175EF /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		BD78D034258F79849A696F7E /* ArticleIngestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleIngestionService.swift; sourceTree = "<group>"; };
@@ -281,6 +285,7 @@
 			children = (
 				22431BA5E2A7F2618AB03828 /* ArticleExtractor.swift */,
 				BD78D034258F79849A696F7E /* ArticleIngestionService.swift */,
+				BB22DD44EE55FF6677889900 /* ArticleSpeechSynthesizer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 				830DA6D738C2822EFA202A17 /* ShareExtension */,
 				550903F5D35BE0058EE055AA /* Tests */,
 				4B034249383F9312DD5CD59C /* Widget */,
+				7BE7246FF0B34E46AE1BCFD8 /* AppIcon.icon */,
 				E63EBD8DF14BFBFBE097A9F1 /* Frameworks */,
 				7174F479512980D22B597903 /* Products */,
 			);
@@ -390,19 +396,15 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					85F502C772A97A12AD72F236 = {
-						DevelopmentTeam = BLCUFZMTP4;
 						ProvisioningStyle = Automatic;
 					};
 					D3A4EF37F2266793B606CC87 = {
-						DevelopmentTeam = BLCUFZMTP4;
 						ProvisioningStyle = Automatic;
 					};
 					D8BF944ECD88BD9EE0989610 = {
-						DevelopmentTeam = BLCUFZMTP4;
 						ProvisioningStyle = Automatic;
 					};
 					F5795FEE98BCBC9476AAE7A1 = {
-						DevelopmentTeam = BLCUFZMTP4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -437,6 +439,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2B63EA78BE4027B80BC257 /* AppIcon.icon in Resources */,
 				43B99A616070D6876690F079 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,6 +463,7 @@
 				2DF101A0F253D3A44BF24330 /* ReadabilityExtractor.swift in Sources */,
 				A726F94FD279A57BF8E8CCDE /* ReadabilityJS.swift in Sources */,
 				155AEE698B2B368F6F178D7C /* ReaderView.swift in Sources */,
+				AA11CC33DD44EE5566778899 /* ArticleSpeechSynthesizer.swift in Sources */,
 				6A310C04A617E44FE3C00157 /* SharedStore.swift in Sources */,
 				193568A6825ADB36FE48F67D /* URLCanonicalizer.swift in Sources */,
 			);
@@ -530,6 +534,7 @@
 				CODE_SIGN_ENTITLEMENTS = App/ArticlesIOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DNKZNVGEK5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Articles;
@@ -555,6 +560,7 @@
 				CODE_SIGN_ENTITLEMENTS = App/ArticlesIOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DNKZNVGEK5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Articles;
@@ -579,6 +585,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ArticlesShareExtension.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DNKZNVGEK5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Save to Articles";
@@ -602,6 +609,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ArticlesShareExtension.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DNKZNVGEK5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Save to Articles";
@@ -683,6 +691,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "";
+				DEVELOPMENT_TEAM = DNKZNVGEK5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -704,6 +713,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Widget/ArticlesWidget.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DNKZNVGEK5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Widget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -725,6 +735,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Widget/ArticlesWidget.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DNKZNVGEK5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Widget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -745,6 +756,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "";
+				DEVELOPMENT_TEAM = DNKZNVGEK5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;

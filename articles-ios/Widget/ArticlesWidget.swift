@@ -76,7 +76,7 @@ struct ArticlesWidgetView: View {
             HStack(spacing: 4) {
                 Image(systemName: "doc.text.fill")
                     .font(.caption2)
-                    .foregroundStyle(.accent)
+                    .foregroundStyle(Color.accentColor)
                 Text("Articles")
                     .font(.caption2)
                     .fontWeight(.medium)
@@ -125,6 +125,7 @@ struct ArticlesWidgetView: View {
 
 // MARK: - Widget
 
+@main
 struct ArticlesWidget: Widget {
     let kind = "ArticlesWidget"
 

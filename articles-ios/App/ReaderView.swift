@@ -15,6 +15,8 @@ struct ReaderView: View {
     @State private var previewHTML: String? = nil
     @State private var isExtracting = false
     @State private var extractionError: String? = nil
+    @State private var speech = ArticleSpeechSynthesizer()
+    @State private var showVoicePicker = false
 
     var body: some View {
         Group {
@@ -67,6 +69,33 @@ struct ReaderView: View {
         }
         .navigationTitle(article.displayTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if article.status == .ready {
+                ToolbarItem(placement: .topBarTrailing) {
+                    HStack(spacing: 16) {
+                        Button {
+                            showVoicePicker = true
+                        } label: {
+                            Image(systemName: "person.wave.2")
+                        }
+                        .accessibilityLabel("Choose voice")
+
+                        Button {
+                            speech.toggle(displayHTML)
+                        } label: {
+                            Image(systemName: speech.state == .speaking ? "pause.fill" : "play.fill")
+                        }
+                        .accessibilityLabel(speech.state == .speaking ? "Pause" : "Read aloud")
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $showVoicePicker) {
+            VoicePickerView(speech: speech)
+        }
+        .onDisappear {
+            speech.stop()
+        }
     }
 
     private var displayHTML: String {
@@ -126,6 +155,75 @@ struct ReaderView: View {
             previewHTML = result.bodyHTML
         } catch {
             extractionError = "Readability failed: \(error.localizedDescription)"
+        }
+    }
+}
+
+// MARK: - Voice Picker
+
+struct VoicePickerView: View {
+    @Bindable var speech: ArticleSpeechSynthesizer
+    @Environment(\.dismiss) private var dismiss
+    @State private var searchText = ""
+
+    private var groupedVoices: [(String, [ArticleSpeechSynthesizer.VoiceInfo])] {
+        let filtered = speech.availableVoices.filter {
+            searchText.isEmpty
+                || $0.name.localizedCaseInsensitiveContains(searchText)
+                || $0.language.localizedCaseInsensitiveContains(searchText)
+        }
+        let grouped = Dictionary(grouping: filtered) {
+            Locale.current.localizedString(forLanguageCode: $0.language) ?? $0.language
+        }
+        return grouped.sorted { $0.key < $1.key }
+    }
+
+    var body: some View {
+        NavigationStack {
+            List {
+                ForEach(groupedVoices, id: \.0) { language, voices in
+                    Section(language) {
+                        ForEach(voices) { voice in
+                            Button {
+                                speech.selectedVoiceID = voice.id
+                                speech.restartIfNeeded()
+                                dismiss()
+                            } label: {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(voice.name)
+                                        Text(voice.qualityLabel)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    Spacer()
+                                    if speech.selectedVoiceID == voice.id {
+                                        Image(systemName: "checkmark")
+                                            .foregroundStyle(.accent)
+                                    }
+                                }
+                            }
+                            .tint(.primary)
+                        }
+                    }
+                }
+            }
+            .searchable(text: $searchText, prompt: "Search voices")
+            .navigationTitle("Voice")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("System Default") {
+                        speech.selectedVoiceID = nil
+                        speech.restartIfNeeded()
+                        dismiss()
+                    }
+                    .disabled(speech.selectedVoiceID == nil)
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
         }
     }
 }

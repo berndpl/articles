@@ -1,0 +1,11 @@
+Target dependency graph (5 targets)
+Target 'ArticlesIOS' in project 'ArticlesIOS'
+➜ Explicit dependency on target 'ArticlesShareExtension' in project 'ArticlesIOS'
+➜ Explicit dependency on target 'ArticlesWidget' in project 'ArticlesIOS'
+➜ Explicit dependency on target 'SwiftSoup' in project 'SwiftSoup'
+Target 'ArticlesWidget' in project 'ArticlesIOS' (no dependencies)
+Target 'ArticlesShareExtension' in project 'ArticlesIOS'
+➜ Explicit dependency on target 'SwiftSoup' in project 'SwiftSoup'
+Target 'SwiftSoup' in project 'SwiftSoup'
+➜ Explicit dependency on target 'SwiftSoup' in project 'SwiftSoup'
+Target 'SwiftSoup' in project 'SwiftSoup' (no dependencies)
