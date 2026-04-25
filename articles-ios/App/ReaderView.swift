@@ -161,6 +161,31 @@ struct ReaderView: View {
 
 // MARK: - Voice Picker
 
+private struct VoiceRow: View {
+    let voice: ArticleSpeechSynthesizer.VoiceInfo
+    let isSelected: Bool
+    let onSelect: () -> Void
+
+    var body: some View {
+        Button(action: onSelect) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(voice.name)
+                    Text(voice.qualityLabel)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                if isSelected {
+                    Image(systemName: "checkmark")
+                        .foregroundStyle(Color.accentColor)
+                }
+            }
+        }
+        .tint(.primary)
+    }
+}
+
 struct VoicePickerView: View {
     @Bindable var speech: ArticleSpeechSynthesizer
     @Environment(\.dismiss) private var dismiss
@@ -184,26 +209,11 @@ struct VoicePickerView: View {
                 ForEach(groupedVoices, id: \.0) { language, voices in
                     Section(language) {
                         ForEach(voices) { voice in
-                            Button {
+                            VoiceRow(voice: voice, isSelected: speech.selectedVoiceID == voice.id) {
                                 speech.selectedVoiceID = voice.id
                                 speech.restartIfNeeded()
                                 dismiss()
-                            } label: {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(voice.name)
-                                        Text(voice.qualityLabel)
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
-                                    }
-                                    Spacer()
-                                    if speech.selectedVoiceID == voice.id {
-                                        Image(systemName: "checkmark")
-                                            .foregroundStyle(.accent)
-                                    }
-                                }
                             }
-                            .tint(.primary)
                         }
                     }
                 }
