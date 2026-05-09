@@ -4,11 +4,15 @@ import SwiftUI
 struct HistoryView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(AppState.self) private var appState
     @Query(sort: [SortDescriptor(\Article.updatedAt, order: .reverse)]) private var articles: [Article]
 
     @State private var isRefreshing = false
     @State private var pasteError: String? = nil
     @State private var showPasteError = false
+    @State private var showSettings = false
+    @State private var showFolderPicker = false
+    @State private var chapterizingArticleIDs: Set<UUID> = []
 
     var body: some View {
         List {
@@ -22,7 +26,10 @@ struct HistoryView: View {
             } else {
                 ForEach(articles) { article in
                     NavigationLink(value: article) {
-                        ArticleRowView(article: article)
+                        ArticleRowView(
+                            article: article,
+                            isChapterizing: chapterizingArticleIDs.contains(article.id)
+                        )
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
@@ -45,23 +52,23 @@ struct HistoryView: View {
             }
         }
         .navigationTitle("Articles")
+        .refreshable {
+            await resumeIncomplete()
+        }
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                if isRefreshing {
-                    ProgressView()
-                } else {
-                    Button {
-                        Task { await resumeIncomplete() }
-                    } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    }
-                }
-            }
             ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    pasteURL()
-                } label: {
-                    Label("Paste URL", systemImage: "doc.on.clipboard")
+                HStack {
+                    Button {
+                        showSettings = true
+                    } label: {
+                        Label("Settings", systemImage: "gearshape")
+                    }
+
+                    Button {
+                        pasteURL()
+                    } label: {
+                        Label("Paste URL", systemImage: "doc.on.clipboard")
+                    }
                 }
             }
         }
@@ -77,6 +84,26 @@ struct HistoryView: View {
             guard newPhase == .active else { return }
             Task { await resumeIncomplete() }
         }
+        .sheet(isPresented: $showSettings) {
+            ArticleSettingsView(
+                folderPath: appState.folderPath,
+                isRefreshing: isRefreshing,
+                onChangeFolder: {
+                    showSettings = false
+                    Task { @MainActor in
+                        try? await Task.sleep(for: .milliseconds(250))
+                        showFolderPicker = true
+                    }
+                },
+                onReindex: { Task { await resumeIncomplete() } }
+            )
+        }
+        .sheet(isPresented: $showFolderPicker) {
+            FolderPickerView { url in
+                showFolderPicker = false
+                Task { await changeFolder(url) }
+            }
+        }
     }
 
     private func pasteURL() {
@@ -88,14 +115,14 @@ struct HistoryView: View {
             return
         }
         Task {
-            await ArticleIngestionService.ingest(url: url, in: modelContext)
+            let article = await ArticleIngestionService.ingest(url: url, in: modelContext)
+            await chapterizeIfNeeded(article)
         }
     }
 
     @MainActor
     private func delete(_ article: Article) {
-        modelContext.delete(article)
-        try? modelContext.save()
+        try? ArticleRepository(context: modelContext).deleteArticleAndFile(article)
     }
 
     private func retry(_ article: Article) {
@@ -109,7 +136,87 @@ struct HistoryView: View {
         guard !isRefreshing else { return }
         isRefreshing = true
         defer { isRefreshing = false }
+        appState.refreshFolderState()
+        guard appState.hasSelectedFolder else { return }
+        try? ArticleRepository(context: modelContext).indexFolderArticles()
         await ArticleIngestionService.resumeIncompleteArticles(in: modelContext)
+        try? ArticleRepository(context: modelContext).indexFolderArticles()
+        appState.refreshFolderState()
+        await chapterizeReadyArticles()
+    }
+
+    @MainActor
+    private func changeFolder(_ url: URL) async {
+        guard !isRefreshing else { return }
+        isRefreshing = true
+        defer { isRefreshing = false }
+        do {
+            try ArticleFolderStore.setFolder(url)
+            appState.refreshFolderState()
+            let repository = ArticleRepository(context: modelContext)
+            try repository.exportReadyArticlesToFolder()
+            try repository.indexFolderArticles()
+            await chapterizeReadyArticles()
+        } catch {
+            pasteError = error.localizedDescription
+            showPasteError = true
+        }
+    }
+
+    @MainActor
+    private func chapterizeReadyArticles() async {
+        let chapterizer = ArticleChapterizer()
+        guard chapterizer.isAvailable else { return }
+
+        let candidates = articles.filter { article in
+            article.status == .ready &&
+            article.chapters.isEmpty &&
+            !article.bodyContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+            !chapterizingArticleIDs.contains(article.id)
+        }
+
+        for article in candidates {
+            await chapterizeIfNeeded(article, using: chapterizer)
+        }
+    }
+
+    @MainActor
+    private func chapterizeIfNeeded(_ article: Article, using chapterizer: ArticleChapterizer = ArticleChapterizer()) async {
+        guard article.status == .ready,
+              article.chapters.isEmpty,
+              !article.bodyContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              chapterizer.isAvailable,
+              !chapterizingArticleIDs.contains(article.id) else { return }
+
+        chapterizingArticleIDs.insert(article.id)
+        defer { chapterizingArticleIDs.remove(article.id) }
+
+        do {
+            let chapters = try await chapterizer.chapterize(title: article.displayTitle, markdown: article.bodyContent)
+            article.chapters = chapters
+            try modelContext.save()
+            try persistChaptersToArticleFile(chapters, for: article)
+        } catch {
+            // ReaderView still offers retry/error detail; history keeps background processing quiet.
+        }
+    }
+
+    @MainActor
+    private func persistChaptersToArticleFile(_ chapters: [ArticleChapter], for article: Article) throws {
+        let document = ArticleMarkdownDocument(
+            url: article.sourceURL,
+            canonicalURL: article.canonicalURL,
+            title: article.displayTitle,
+            sourceDomain: article.sourceDomain,
+            createdAt: article.createdAt,
+            updatedAt: article.updatedAt,
+            chapters: chapters,
+            markdown: article.bodyContent
+        )
+        let folderArticle = try ArticleFolderStore.write(document, replacing: article.fileName)
+        article.fileName = ArticleFolderStore.filename(for: folderArticle.fileURL)
+        article.fileModifiedAt = folderArticle.modifiedAt
+        try modelContext.save()
     }
 }
 

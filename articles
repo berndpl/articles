@@ -5,9 +5,37 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 # Resolve symlink to real script location
 [ -L "$0" ] && SCRIPT_DIR="$(cd "$(dirname "$(readlink "$0")")" && pwd -P)"
-ARTICLES_DIR="${ARTICLES_DIR:-$SCRIPT_DIR/history}"
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/articles"
+CONFIG_FILE="$CONFIG_DIR/config"
+DEFAULT_ARTICLES_DIR="$SCRIPT_DIR/history"
+
+configured_articles_dir() {
+    [ -f "$CONFIG_FILE" ] || return 0
+    sed -n 's/^ARTICLES_DIR=//p' "$CONFIG_FILE" | tail -1
+}
+
+if [ -z "${ARTICLES_DIR:-}" ]; then
+    CONFIGURED_ARTICLES_DIR="$(configured_articles_dir)"
+    ARTICLES_DIR="${CONFIGURED_ARTICLES_DIR:-$DEFAULT_ARTICLES_DIR}"
+fi
 PROMPTS_DIR="${PROMPTS_DIR:-$SCRIPT_DIR/prompts}"
 mkdir -p "$ARTICLES_DIR" "$PROMPTS_DIR"
+
+set_articles_folder() {
+    local path="$1"
+    if [ -z "$path" ]; then
+        echo "Usage: articles --set-folder PATH" >&2
+        return 1
+    fi
+
+    mkdir -p "$path" "$CONFIG_DIR"
+    printf 'ARTICLES_DIR=%s\n' "$path" > "$CONFIG_FILE"
+    echo "Articles folder: $path"
+}
+
+show_articles_folder() {
+    echo "$ARTICLES_DIR"
+}
 
 missing_commands() {
     local cmd
@@ -139,6 +167,47 @@ init_prompts() {
     echo "Explain this article in simple terms, as if to someone unfamiliar with the topic." > "$PROMPTS_DIR/eli5.txt"
 }
 
+frontmatter_value() {
+    local key="$1"
+    local file="$2"
+    awk -v key="$key" '
+        BEGIN { in_fm=0 }
+        NR == 1 && $0 == "---" { in_fm=1; next }
+        in_fm && $0 == "---" { exit }
+        in_fm {
+            split($0, parts, ":")
+            if (parts[1] == key) {
+                sub("^[^:]+:[[:space:]]*", "")
+                gsub(/^"|"$/, "")
+                print
+                exit
+            }
+        }
+    ' "$file"
+}
+
+yaml_escape() {
+    local value="$1"
+    value="${value//\\/\\\\}"
+    value="${value//\"/\\\"}"
+    printf '"%s"\n' "$value"
+}
+
+remove_existing_article_files() {
+    local url="$1"
+    local file
+    find "$ARTICLES_DIR" -maxdepth 1 -type f -name '*.md' -print0 2>/dev/null |
+    while IFS= read -r -d '' file; do
+        local existing_url
+        local existing_canonical_url
+        existing_url="$(frontmatter_value url "$file")"
+        existing_canonical_url="$(frontmatter_value canonical_url "$file")"
+        if [ "$existing_url" = "$url" ] || [ "$existing_canonical_url" = "$url" ]; then
+            rm -f "$file"
+        fi
+    done
+}
+
 prompt_url() {
     install_dependencies gum trafilatura glow
 
@@ -183,12 +252,22 @@ fetch_article() {
     local filepath="$ARTICLES_DIR/$filename"
 
     # Remove existing file for same URL (duplicate handling)
-    grep -rl "^url: $url$" "$ARTICLES_DIR" 2>/dev/null | xargs rm -f || true
+    remove_existing_article_files "$url"
+
+    local source_domain
+    source_domain=$(printf '%s\n' "$url" | sed -E 's#^[a-zA-Z]+://([^/?#]+).*#\1#')
+    local timestamp
+    timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
     # Save with URL in frontmatter
     {
         echo "---"
-        echo "url: $url"
+        printf 'url: %s\n' "$(yaml_escape "$url")"
+        printf 'canonical_url: %s\n' "$(yaml_escape "$url")"
+        printf 'title: %s\n' "$(yaml_escape "$title")"
+        printf 'source_domain: %s\n' "$(yaml_escape "$source_domain")"
+        echo "created_at: $timestamp"
+        echo "updated_at: $timestamp"
         echo "---"
         echo ""
         echo "$content"
@@ -239,24 +318,19 @@ browse_history() {
     if [ -z "$(ls -A "$ARTICLES_DIR" 2>/dev/null)" ]; then
         echo "No saved articles yet."
         prompt_url
+        if [ -n "$(ls -A "$ARTICLES_DIR" 2>/dev/null)" ]; then
+            browse_history
+        fi
         return
     fi
 
-    # Prompt: paste URL or browse
-    local input
-    input=$(gum input --placeholder "Paste a URL, or press Enter to browse history" --width 80 --char-limit 500) || true
-
-    if [[ "$input" =~ ^https?:// ]]; then
-        fetch_article "$input"
-        return
-    fi
-
-    # fzf-based browser: Enter=read, →=process with prompt
+    # fzf-based browser: Enter=read, a=add URL, →=process with prompt, q=quit
     local selected
     selected=$(
         ls -t "$ARTICLES_DIR"/*.md 2>/dev/null |
-        fzf --header="Enter: read  →: process with AI  Esc: quit" \
-            --expect=right,enter \
+        fzf --header="Enter: read  a: add article URL  →: process with AI  q/Esc: quit" \
+            --expect=a,right,enter \
+            --bind='q:abort' \
             --preview="glow -w 80 {}" \
             --preview-window=right:60%:wrap \
             --delimiter='/' --with-nth=-1 \
@@ -267,6 +341,12 @@ browse_history() {
     action=$(echo "$selected" | head -1)
     local filepath
     filepath=$(echo "$selected" | tail -1)
+
+    if [ "$action" = "a" ]; then
+        prompt_url
+        browse_history
+        return
+    fi
 
     [ -z "$filepath" ] && return
 
@@ -280,8 +360,17 @@ browse_history() {
 }
 
 # --- main ---
-if [ $# -eq 0 ]; then
-    browse_history
-else
-    fetch_article "$1"
-fi
+case "${1:-}" in
+    --set-folder)
+        set_articles_folder "${2:-}"
+        ;;
+    --show-folder)
+        show_articles_folder
+        ;;
+    "")
+        browse_history
+        ;;
+    *)
+        fetch_article "$1"
+        ;;
+esac

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ArticleRowView: View {
     let article: Article
+    var isChapterizing = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -22,8 +23,13 @@ struct ArticleRowView: View {
                 .foregroundStyle(.secondary)
 
             HStack(alignment: .top, spacing: 8) {
-                Image(systemName: article.status.iconName)
-                    .foregroundStyle(article.status.tintColor)
+                if isChapterizing {
+                    ProgressView()
+                        .controlSize(.small)
+                } else {
+                    Image(systemName: article.status.iconName)
+                        .foregroundStyle(article.status.tintColor)
+                }
                 Text(article.statusDescription)
                     .font(.callout)
                     .foregroundStyle(.secondary)

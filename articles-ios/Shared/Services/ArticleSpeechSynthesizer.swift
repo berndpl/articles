@@ -34,11 +34,14 @@ final class ArticleSpeechSynthesizer: NSObject {
     private var currentHTML: String?
 
     var availableVoices: [VoiceInfo] {
-        AVSpeechSynthesisVoice.speechVoices()
-            .sorted { lhs, rhs in
-                if lhs.quality.rawValue != rhs.quality.rawValue { return lhs.quality.rawValue > rhs.quality.rawValue }
-                return lhs.name < rhs.name
-            }
+        let voices = AVSpeechSynthesisVoice.speechVoices()
+            .filter { $0.language.hasPrefix("en") || $0.language.hasPrefix("de") }
+
+        let bestQuality = voices.max(by: { $0.quality.rawValue < $1.quality.rawValue })?.quality.rawValue ?? 0
+
+        return voices
+            .filter { $0.quality.rawValue == bestQuality }
+            .sorted { $0.name < $1.name }
             .map { VoiceInfo(id: $0.identifier, name: $0.name, language: $0.language, qualityRaw: $0.quality.rawValue) }
     }
 
@@ -54,7 +57,17 @@ final class ArticleSpeechSynthesizer: NSObject {
     }
 
     func speak(_ html: String) {
-        let text = Self.stripHTML(html)
+        speakText(Self.readableText(from: html))
+        currentHTML = html
+    }
+
+    func speak(_ markdown: String, fromParagraphIndex paragraphIndex: Int) {
+        let text = Self.readableText(from: markdown, startingAtParagraphIndex: paragraphIndex)
+        speakText(text)
+        currentHTML = markdown
+    }
+
+    private func speakText(_ text: String) {
         guard !text.isEmpty else { return }
 
         if state == .paused {
@@ -65,7 +78,6 @@ final class ArticleSpeechSynthesizer: NSObject {
 
         synthesizer.stopSpeaking(at: .immediate)
         configureAudioSession()
-        currentHTML = html
 
         let utterance = AVSpeechUtterance(string: text)
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
@@ -110,26 +122,32 @@ final class ArticleSpeechSynthesizer: NSObject {
         try? AVAudioSession.sharedInstance().setActive(true)
     }
 
-    private static func stripHTML(_ html: String) -> String {
-        guard let data = html.data(using: .utf8),
-              let attributed = try? NSAttributedString(
-                  data: data,
-                  options: [
-                      .documentType: NSAttributedString.DocumentType.html,
-                      .characterEncoding: String.Encoding.utf8.rawValue,
-                  ],
-                  documentAttributes: nil
-              )
-        else {
-            return html.replacingOccurrences(of: "<[^>]+>", with: " ", options: .regularExpression)
+    static func readableText(from content: String, startingAtParagraphIndex paragraphIndex: Int = 0) -> String {
+        let contentToRead: String
+        if paragraphIndex > 0 {
+            let blocks = ArticleMarkdownSegmenter.blocks(from: content)
+            contentToRead = ArticleMarkdownSegmenter.markdown(from: blocks, startingAt: paragraphIndex)
+        } else {
+            contentToRead = content
+        }
+
+        return stripReadableMarkup(contentToRead)
+    }
+
+    private static func stripReadableMarkup(_ content: String) -> String {
+        if !content.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("<") {
+            return ArticleMarkdownDocument.plainText(fromMarkdown: content)
                 .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
                 .trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        return attributed.string.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        return content.replacingOccurrences(of: "<[^>]+>", with: " ", options: .regularExpression)
+            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 
-extension ArticleSpeechSynthesizer: @preconcurrency AVSpeechSynthesizerDelegate {
+extension ArticleSpeechSynthesizer: AVSpeechSynthesizerDelegate {
     nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         Task { @MainActor in
             self.state = .idle

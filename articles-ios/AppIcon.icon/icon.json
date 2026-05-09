@@ -5,12 +5,12 @@
       "layers" : [
         {
           "fill" : {
-            "solid" : "display-p3:0.29020,0.33725,0.85882,1.00000"
+            "solid" : "display-p3:0.10588,0.30980,0.54118,1.00000"
           },
           "glass" : true,
           "hidden" : false,
           "image-name" : "Symbol.svg",
-          "name" : "newspaper.fill",
+          "name" : "doc.text.fill",
           "position" : {
             "scale" : 0.7,
             "translation-in-points" : [

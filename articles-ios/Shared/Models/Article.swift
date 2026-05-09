@@ -21,6 +21,9 @@ final class Article {
     var updatedAt: Date
     var status: ArticleStatus
     var errorMessage: String?
+    var fileName: String?
+    var fileModifiedAt: Date?
+    var chaptersData: Data?
 
     init(
         id: UUID = UUID(),
@@ -33,7 +36,10 @@ final class Article {
         createdAt: Date = .now,
         updatedAt: Date = .now,
         status: ArticleStatus = .pending,
-        errorMessage: String? = nil
+        errorMessage: String? = nil,
+        fileName: String? = nil,
+        fileModifiedAt: Date? = nil,
+        chaptersData: Data? = nil
     ) {
         self.id = id
         self.sourceURL = sourceURL
@@ -46,6 +52,9 @@ final class Article {
         self.updatedAt = updatedAt
         self.status = status
         self.errorMessage = errorMessage
+        self.fileName = fileName
+        self.fileModifiedAt = fileModifiedAt
+        self.chaptersData = chaptersData
     }
 }
 
@@ -77,6 +86,16 @@ extension Article {
     var canRetry: Bool {
         status == .failed
     }
+
+    var chapters: [ArticleChapter] {
+        get {
+            guard let chaptersData else { return [] }
+            return (try? JSONDecoder().decode([ArticleChapter].self, from: chaptersData)) ?? []
+        }
+        set {
+            chaptersData = try? JSONEncoder().encode(newValue)
+        }
+    }
 }
 
 extension Article {
@@ -86,8 +105,8 @@ extension Article {
             canonicalURL: "https://www.example.com/story",
             title: "A Saved Article",
             sourceDomain: "example.com",
-            bodyContent: "<h1>A Saved Article</h1><p>This is a preview article rendered from stored HTML.</p>",
-            previewText: "This is a preview article rendered from stored HTML.",
+            bodyContent: "# A Saved Article\n\nThis is a preview article rendered from stored markdown.",
+            previewText: "This is a preview article rendered from stored markdown.",
             status: .ready
         )
     }

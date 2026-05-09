@@ -5,6 +5,13 @@ import UserNotifications
 @Observable
 final class AppState {
     var pendingArticleID: UUID?
+    var hasSelectedFolder = ArticleFolderStore.hasSelectedFolder
+    var folderPath = ArticleFolderStore.displayPath()
+
+    func refreshFolderState() {
+        hasSelectedFolder = ArticleFolderStore.hasSelectedFolder
+        folderPath = ArticleFolderStore.displayPath()
+    }
 }
 
 private final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {

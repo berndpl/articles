@@ -3,10 +3,12 @@ options:
   minimumXcodeGenVersion: 2.45.0
   deploymentTarget:
     iOS: "18.0"
+    macOS: "15.0"
 settings:
   base:
     SWIFT_VERSION: 5.0
     IPHONEOS_DEPLOYMENT_TARGET: 18.0
+    MACOSX_DEPLOYMENT_TARGET: 15.0
     TARGETED_DEVICE_FAMILY: "1,2"
     SUPPORTS_MACCATALYST: NO
     CODE_SIGN_STYLE: Automatic
@@ -36,6 +38,9 @@ targets:
               - articles
     entitlements:
       path: App/ArticlesIOS.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.de.plontsch.Articles
     settings:
       base:
         PRODUCT_NAME: ArticlesIOS
@@ -71,9 +76,13 @@ targets:
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShareViewController
           NSExtensionAttributes:
             NSExtensionActivationRule:
+              NSExtensionActivationSupportsWebPageWithMaxCount: 1
               NSExtensionActivationSupportsWebURLWithMaxCount: 1
     entitlements:
       path: ShareExtension/ArticlesShareExtension.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.de.plontsch.Articles
     settings:
       base:
         PRODUCT_NAME: ArticlesShareExtension
@@ -93,6 +102,7 @@ targets:
     sources:
       - path: Widget
       - Shared/Models/Article.swift
+      - Shared/Models/ArticleChapter.swift
       - Shared/Persistence/SharedStore.swift
     info:
       path: Widget/Info.plist
@@ -102,6 +112,9 @@ targets:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     entitlements:
       path: Widget/ArticlesWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.de.plontsch.Articles
     settings:
       base:
         PRODUCT_NAME: ArticlesWidget
@@ -113,6 +126,95 @@ targets:
       - sdk: WidgetKit.framework
       - sdk: SwiftUI.framework
       - sdk: SwiftData.framework
+
+  ArticlesMac:
+    type: application
+    platform: macOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: MacApp
+      - Shared/Models/Article.swift
+      - Shared/Models/ArticleChapter.swift
+      - Shared/Persistence/ArticleRepository.swift
+      - Shared/Persistence/SharedStore.swift
+      - Shared/Services/ArticleExtractor.swift
+      - Shared/Services/ArticleFolderStore.swift
+      - Shared/Services/ArticleMarkdownDocument.swift
+      - Shared/Services/HTMLToMarkdownConverter.swift
+      - Shared/Utilities/URLCanonicalizer.swift
+    info:
+      path: MacApp/Info.plist
+      properties:
+        CFBundleDisplayName: Articles
+        LSApplicationCategoryType: public.app-category.news
+    entitlements:
+      path: MacApp/ArticlesMac.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.application-groups:
+          - group.de.plontsch.Articles
+        com.apple.security.files.user-selected.read-write: true
+        com.apple.security.network.client: true
+    settings:
+      base:
+        PRODUCT_NAME: Articles
+        PRODUCT_BUNDLE_IDENTIFIER: com.berndplontsch.articlesmac
+        GENERATE_INFOPLIST_FILE: NO
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 1.0
+    dependencies:
+      - package: SwiftSoup
+      - target: ArticlesMacShareExtension
+        embed: true
+
+  ArticlesMacShareExtension:
+    type: app-extension
+    platform: macOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: MacShareExtension
+      - Shared/Models/Article.swift
+      - Shared/Models/ArticleChapter.swift
+      - Shared/Persistence/ArticleRepository.swift
+      - Shared/Persistence/SharedStore.swift
+      - Shared/Services/ArticleExtractor.swift
+      - Shared/Services/ArticleFolderStore.swift
+      - Shared/Services/ArticleIngestionService.swift
+      - Shared/Services/ArticleMarkdownDocument.swift
+      - Shared/Services/HTMLToMarkdownConverter.swift
+      - Shared/Services/ShareURLExtractor.swift
+      - Shared/Utilities/URLCanonicalizer.swift
+      - Shared/Views/ShareStatusView.swift
+    info:
+      path: MacShareExtension/Info.plist
+      properties:
+        CFBundleDisplayName: Save to Articles
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).MacShareViewController
+          NSExtensionAttributes:
+            NSExtensionActivationRule:
+              NSExtensionActivationSupportsWebPageWithMaxCount: 1
+              NSExtensionActivationSupportsWebURLWithMaxCount: 1
+    entitlements:
+      path: MacShareExtension/ArticlesMacShareExtension.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.application-groups:
+          - group.de.plontsch.Articles
+        com.apple.security.files.user-selected.read-write: true
+        com.apple.security.network.client: true
+    settings:
+      base:
+        PRODUCT_NAME: ArticlesMacShareExtension
+        PRODUCT_BUNDLE_IDENTIFIER: com.berndplontsch.articlesmac.share
+        GENERATE_INFOPLIST_FILE: NO
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 1.0
+        APPLICATION_EXTENSION_API_ONLY: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Save to Articles
+    dependencies:
+      - package: SwiftSoup
 
   ArticlesIOSTests:
     type: bundle.unit-test
@@ -153,3 +255,11 @@ schemes:
       config: Debug
       targets:
         - ArticlesIOSTests
+
+  ArticlesMac:
+    build:
+      targets:
+        ArticlesMac: all
+        ArticlesMacShareExtension: [run, test]
+    run:
+      config: Debug

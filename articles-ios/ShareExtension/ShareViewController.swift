@@ -1,6 +1,5 @@
 import SwiftData
 import SwiftUI
-import UniformTypeIdentifiers
 import UIKit
 import UserNotifications
 import WidgetKit
@@ -39,8 +38,14 @@ final class ShareViewController: UIViewController {
     private func handleShare() async {
         model.state = .loading("Saving article to Articles…")
 
-        guard let url = await extractURL() else {
+        guard let url = await ShareURLExtractor.extractURL(from: extensionContext) else {
             model.state = .failure("No webpage URL was found in this share.")
+            scheduleCompletion()
+            return
+        }
+
+        guard ArticleFolderStore.hasSelectedFolder else {
+            model.state = .failure("Open Articles and choose a shared folder before saving from the share sheet.")
             scheduleCompletion()
             return
         }
@@ -83,24 +88,4 @@ final class ShareViewController: UIViewController {
         }
     }
 
-    private func extractURL() async -> URL? {
-        guard let item = extensionContext?.inputItems.first as? NSExtensionItem else { return nil }
-
-        for provider in item.attachments ?? [] {
-            if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier),
-               let item = try? await provider.loadItem(forTypeIdentifier: UTType.url.identifier),
-               let url = item as? URL {
-                return url
-            }
-
-            if provider.hasItemConformingToTypeIdentifier(UTType.plainText.identifier),
-               let item = try? await provider.loadItem(forTypeIdentifier: UTType.plainText.identifier),
-               let string = item as? String,
-               let url = URL(string: string) {
-                return url
-            }
-        }
-
-        return nil
-    }
 }
